@@ -244,3 +244,56 @@ body {
     transform: scale(1); /* Disable hover scaling */
     cursor: default;
 }
+
+
+
+
+/* ------------------ MOBILE RESPONSIVE ADJUSTMENTS ------------------ */
+@media(max-width: 768px) {
+
+    #question-card {
+        padding: 22px;
+    }
+
+    #question-card h1 {
+        font-size: 20px; /* slightly smaller for small screens but readable */
+    }
+
+    .option {
+        font-size: 18px; /* larger for easier tapping */
+        padding: 16px;
+        border-radius: 14px;
+    }
+
+    #topbar {
+        height: 60px;
+        padding: 0 15px;
+    }
+
+    #topbar h2 {
+        font-size: 18px; /* larger for mobile readability */
+    }
+
+    #scoreboard {
+        gap: 8px;
+    }
+
+    .s-box {
+        font-size: 14px;
+        padding: 6px 10px;
+    }
+
+    /* Increase explanation font size */
+    #explanation p,
+    #explanation h3 {
+        font-size: 16px;
+    }
+
+    /* Adjust next button */
+    #next-btn {
+        bottom: 15px;
+        right: 15px;
+        padding: 14px 22px;
+        font-size: 18px;
+    }
+}
