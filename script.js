@@ -98,6 +98,7 @@ function nextQuestion() {
         alert("Quiz Complete!");
         return;
     }
+    
     loadQuestion();
 }
 
