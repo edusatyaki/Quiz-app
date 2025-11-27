@@ -1,0 +1,246 @@
+/* ------------------ GLOBAL ------------------ */
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Inter, -apple-system, BlinkMacSystemFont, sans-serif;
+    background: #f7f9fb;
+    color: #1d1d1f;
+}
+
+/* ------------------ HEADER ------------------ */
+#topbar {
+    width: 100%;
+    height: 70px;
+    background: #071a2f;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+}
+
+#topbar h2 {
+    font-size: 18px;
+    font-weight: 600;
+}
+
+/* SCOREBOARD */
+#scoreboard {
+    display: flex;
+    gap: 10px;
+}
+
+.s-box {
+    padding: 6px 10px;
+    border: 1px solid #ffffff50;
+    border-radius: 6px;
+    font-size: 12px;
+}
+
+.s-box span {
+    font-weight: 700;
+    font-size: 14px;
+}
+
+/* ------------------ WRAPPER ------------------ */
+#quiz-wrapper {
+    width: 100%;
+    max-width: 900px;
+    margin: 20px auto;
+    padding: 15px;
+    animation: fadeIn 0.4s ease;
+}
+
+/* ------------------ QUESTION PROGRESS ------------------ */
+#q-progress {
+    background: #d9fbe4;
+    color: #008a38;
+    font-weight: 600;
+    padding: 10px 20px;
+    border-radius: 14px;
+    display: inline-block;
+}
+
+/* ------------------ QUESTION CARD ------------------ */
+#question-card {
+    background: white;
+    border-radius: 22px;
+    padding: 30px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+    animation: popIn 0.35s ease;
+}
+
+#question-card h1 {
+    font-size: 24px;
+    margin-bottom: 24px;
+}
+
+/* ------------------ OPTIONS ------------------ */
+.option {
+    background: #f8fbff;
+    border: 2px solid #e2e8f0;
+    padding: 16px;
+    border-radius: 14px;
+    margin: 12px 0;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.25s ease;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.option:hover {
+    background: #ecf4ff;
+    transform: translateY(-3px);
+    box-shadow: 0 5px 12px rgba(0,0,0,0.06);
+}
+
+/* funny "bubble pop" animation when clicking */
+.option:active {
+    transform: scale(0.96);
+}
+
+/* correct & wrong feedback */
+.correct {
+    background: #d9ffe7 !important;
+    border-color: #4ec77a !important;
+    animation: bounce 0.4s ease;
+}
+
+.wrong {
+    background: #ffe1e1 !important;
+    border-color: #ff6b6b !important;
+    animation: wiggle 0.35s ease;
+}
+
+/* ------------------ EXPLANATION ------------------ */
+#explanation {
+    margin-top: 30px;
+    border-left: 4px solid #222;
+    padding-left: 16px;
+}
+
+#explanation h3 {
+    margin: 0;
+    font-weight: 700;
+}
+
+/* ------------------ NEXT BUTTON ------------------ */
+#next-btn {
+    position: fixed;
+    right: 25px;
+    bottom: 25px;
+    background: linear-gradient(145deg, #7bf88c, #30d84a);
+    color: #00360e;
+    border: none;
+    border-radius: 40px;
+    padding: 14px 26px;
+    font-size: 18px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+    transition: 0.25s;
+}
+
+#next-btn span {
+    font-size: 22px;
+}
+
+#next-btn:hover {
+    transform: scale(1.07);
+}
+
+/* Mobile floating button adapts */
+@media(max-width: 600px) {
+    #next-btn {
+        bottom: 15px;
+        right: 15px;
+        padding: 12px 20px;
+        font-size: 16px;
+    }
+}
+
+/* ------------------ MOBILE RESPONSIVE ADJUSTMENTS ------------------ */
+@media(max-width: 768px) {
+
+    #question-card {
+        padding: 22px;
+    }
+
+    .option {
+        font-size: 15px;
+        padding: 14px;
+        border-radius: 12px;
+    }
+
+    #topbar {
+        height: 60px;
+        padding: 0 15px;
+    }
+
+    #topbar h2 {
+        font-size: 16px;
+    }
+
+    #scoreboard {
+        gap: 6px;
+    }
+
+    .s-box {
+        padding: 5px 8px;
+        font-size: 11px;
+    }
+}
+
+/* ------------------ ANIMATIONS ------------------ */
+@keyframes popIn {
+    0% { transform: scale(0.92); opacity: 0 }
+    100% { transform: scale(1); opacity: 1 }
+}
+
+@keyframes bounce {
+    0% { transform: scale(0.9); }
+    60% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+@keyframes wiggle {
+    0%, 100% { transform: translateX(0); }
+    20% { transform: translateX(-6px); }
+    40% { transform: translateX(6px); }
+    60% { transform: translateX(-4px); }
+    80% { transform: translateX(4px); }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.hidden {
+    display: none;
+}
+
+/* ------------------ CONFETTI ------------------ */
+#confetti-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+
+#next-btn.disabled {
+    opacity: 0.4;
+    pointer-events: none;
+    transform: scale(1); /* Disable hover scaling */
+    cursor: default;
+}

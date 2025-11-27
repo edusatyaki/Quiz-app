@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>MongoDB Quiz</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<header id="topbar">
+    <h2>MONGODB QUIZ</h2>
+
+    <div id="scoreboard">
+        <div class="s-box">SCORE <span id="score-val">0</span></div>
+        <div class="s-box">CORRECT <span id="correct-val">0</span></div>
+        <div class="s-box">WRONG <span id="wrong-val">0</span></div>
+    </div>
+</header>
+
+<div id="quiz-wrapper">
+
+    <div id="question-meta">
+        <div id="q-progress">QUESTION <span id="q-num">1</span> OF <span id="q-total">0</span></div>
+    </div>
+
+    <div id="question-card">
+        <h1 id="question-text"></h1>
+
+        <div id="options-box"></div>
+
+        <div id="explanation" class="hidden">
+            <h3>Explanation</h3>
+            <p id="explanation-text"></p>
+        </div>
+    </div>
+
+</div>
+
+<button id="next-btn" class="hidden" >
+    Next
+    <span>➜</span>
+</button>
+
+<canvas id="confetti-canvas"></canvas>
+
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti"></script>
+<script src="script.js"></script>
+</body>
+</html>
