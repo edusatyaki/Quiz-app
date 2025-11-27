@@ -74,7 +74,7 @@ function selectOption(el, chosen) {
         wrongVal.textContent = wrong;
 
         el.classList.add("wrong");
-        errorSound.play();
+        //errorSound.play();
 
         // Highlight the correct answer too
         const correctOption = [...all].find(x =>
