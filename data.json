@@ -1,1223 +1,1201 @@
 [
   {
-    "question": "What is the command to: Switches to the database. Creates it if it doesn't exist upon first data insertion.",
+    "question": "What is the command to: Switch to a database (and create it if it doesn't exist upon first write).",
     "options": [
-      "Referencing is required (e.g., a category to 1000s of products).",
+      "switch <databaseName>",
       "use <databaseName>",
-      "db.users.replaceOne({_id: 1}, {username: newuser, lastLogin: new Date()})",
-      "show collections"
+      "db.switch(<databaseName>)",
+      "checkout <databaseName>"
     ],
     "correctAnswer": "use <databaseName>",
-    "explanation": "Switches to the database. Creates it if it doesn't exist upon first data insertion."
+    "explanation": "The 'use' command switches the context to the specified database. The database is lazy-created when data is first inserted."
   },
   {
-    "question": "What is the command to: Lists all databases available on the MongoDB server.",
+    "question": "What is the command to: List all databases available on the MongoDB server.",
     "options": [
       "show dbs",
-      "db.users.find()",
-      "which refers to the users collection.",
-      "db.users.updateMany({}, {$inc: {grades.$[].score: 5}})"
+      "show all databases",
+      "db.listAll()",
+      "ls dbs"
     ],
     "correctAnswer": "show dbs",
-    "explanation": "Lists all databases available on the MongoDB server."
+    "explanation": "The 'show dbs' (or 'show databases') command lists all databases on the server that contain data."
   },
   {
-    "question": "What is the command to: Explicitly creates the users collection. (Often created automatically).",
+    "question": "What is the command to: Explicitly create a collection named 'users'.",
     "options": [
-      "db.createCollection(users)",
-      "{$project: {content: 0, _id: 0}}",
-      "db.users.updateOne({_id: 1}, {$push: {tags: new}})",
-      "{$group: {_id: $user, items: {$push: $productName}}}"
+      "db.createCollection('users')",
+      "db.users.create()",
+      "db.addCollection('users')",
+      "db.new('users')"
     ],
-    "correctAnswer": "db.createCollection(users)",
-    "explanation": "Explicitly creates the users collection. (Often created automatically)."
+    "correctAnswer": "db.createCollection('users')",
+    "explanation": "While collections are created automatically upon insertion, 'db.createCollection()' is used to explicitly create them, often with specific options."
   },
   {
-    "question": "What is the command to: Lists all collections in the current database.",
+    "question": "What is the command to: List all collections in the current database.",
     "options": [
-      "db.users.updateOne({_id: 1}, {$push: {tags: new}})",
+      "db.listCollections()",
       "show collections",
-      "db.users.updateOne({_id: 1}, {$addToSet: {uniqueTags: {$each: [A, B]}}})",
-      "db.users.find({$expr: {$gt: [$qty, $reorderPoint]}})"
+      "show tables",
+      "ls collections"
     ],
     "correctAnswer": "show collections",
-    "explanation": "Lists all collections in the current database."
+    "explanation": "'show collections' prints the list of collections in the current database."
   },
   {
-    "question": "What is the command to: Deletes the current database. (CAUTION: Irreversible)",
+    "question": "What is the command to: Delete the current database. (CAUTION: Irreversible)",
     "options": [
       "db.dropDatabase()",
-      "show collections",
-      "db.users.dropIndex(email_1)",
-      "db.users.updateMany({},"
+      "db.deleteDatabase()",
+      "db.removeDatabase()",
+      "drop database"
     ],
     "correctAnswer": "db.dropDatabase()",
-    "explanation": "Deletes the current database. (CAUTION: Irreversible)"
+    "explanation": "'db.dropDatabase()' removes the current database and all its files."
   },
   {
-    "question": "What is the command to: Deletes the users collection. (CAUTION: Irreversible)",
+    "question": "What is the command to: Delete the 'users' collection. (CAUTION: Irreversible)",
     "options": [
       "db.users.drop()",
-      "db.products.find({name: {$regex: laptop, $options: i}})",
-      "db.users.find({age: 30}, {name: 1, email: 1, _id: 0})",
-      "Embedding is generally preferred (e.g., a user and their unique profile)."
+      "db.users.delete()",
+      "db.users.remove()",
+      "db.dropCollection('users')"
     ],
     "correctAnswer": "db.users.drop()",
-    "explanation": "Deletes the users collection. (CAUTION: Irreversible)"
+    "explanation": "The 'drop()' method removes the specific collection from the database."
   },
   {
-    "question": "What is the command to: Inserts a single document.",
+    "question": "What is the command to: Insert a single document into the 'posts' collection.",
     "options": [
-      "db.users.updateOne({_id: 1}, {$push: {log: {$each: [1, 2, 3], $slice: -5}}})",
-      "{$group: {_id: {$month: $dateField}, count: {$sum: 1}}}",
-      "db.posts.insertOne({title: Intro, author: A})",
-      "{$sum: 1}"
+      "db.posts.insertOne({title: 'Intro', author: 'A'})",
+      "db.posts.insert({title: 'Intro', author: 'A'})",
+      "db.posts.add({title: 'Intro', author: 'A'})",
+      "db.posts.push({title: 'Intro', author: 'A'})"
     ],
-    "correctAnswer": "db.posts.insertOne({title: Intro, author: A})",
-    "explanation": "Inserts a single document."
+    "correctAnswer": "db.posts.insertOne({title: 'Intro', author: 'A'})",
+    "explanation": "'insertOne' is the standard command for adding a single document."
   },
   {
-    "question": "What is the command to: Inserts an array of multiple documents.",
+    "question": "What is the command to: Insert an array of multiple documents into the 'posts' collection.",
     "options": [
-      "{$project: {isSubset: {$setIsSubset: [$requiredTags, $userTags]}}}",
-      "Embedding is ideal (e.g., a book and its 5-10 reviews).",
-      "db.posts.insertMany([{t: P1}, {t: P2}])",
-      "Referencing (e.g., a student enrolled in many courses, and vice versa)."
+      "db.posts.insertMany([{t: 'P1'}, {t: 'P2'}])",
+      "db.posts.insertArray([{t: 'P1'}, {t: 'P2'}])",
+      "db.posts.addAll([{t: 'P1'}, {t: 'P2'}])",
+      "db.posts.insertAll([{t: 'P1'}, {t: 'P2'}])"
     ],
-    "correctAnswer": "db.posts.insertMany([{t: P1}, {t: P2}])",
-    "explanation": "Inserts an array of multiple documents."
+    "correctAnswer": "db.posts.insertMany([{t: 'P1'}, {t: 'P2'}])",
+    "explanation": "'insertMany' accepts an array of documents and inserts them all."
   },
   {
-    "question": "What is the command to: Retrieves all documents in the collection.",
+    "question": "What is the command to: Retrieve all documents in the 'posts' collection.",
     "options": [
       "db.posts.find()",
-      "{$project: {dateString: {$dateToString: {format: %Y-%m-%d, date: $dateField}}}}",
-      "db.users.updateOne({name: B}, {$set: {age: 25}}, {upsert: true})",
-      "which refers to the users collection."
+      "db.posts.findAll()",
+      "db.posts.select('*')",
+      "db.posts.getAll()"
     ],
     "correctAnswer": "db.posts.find()",
-    "explanation": "Retrieves all documents in the collection."
+    "explanation": "'find()' with no arguments (or an empty object {}) retrieves all documents."
   },
   {
-    "question": "What is the command to: Retrieves only the first document matching the filter.",
+    "question": "What is the command to: Retrieve only the first document matching a filter.",
     "options": [
-      "db.posts.findOne({author: A})",
-      "db.users.updateOne({grades.score: 80},",
-      "show collections",
-      "db.users.updateMany({}, {$inc: {grades.$[].score: 5}})"
+      "db.posts.findOne({author: 'A'})",
+      "db.posts.findFirst({author: 'A'})",
+      "db.posts.find({author: 'A'}).first()",
+      "db.posts.limit(1).find({author: 'A'})"
     ],
-    "correctAnswer": "db.posts.findOne({author: A})",
-    "explanation": "Retrieves only the first document matching the filter."
+    "correctAnswer": "db.posts.findOne({author: 'A'})",
+    "explanation": "'findOne' returns the actual document object of the first match, not a cursor."
   },
   {
-    "question": "What is the command to: Updates the first document matching the filter.",
+    "question": "What is the command to: Update the first document matching the filter.",
     "options": [
-      "db.products.updateOne({_id: 1}, {$inc: {qty: 2}})",
-      "{$project: {highScores: {$filter:",
-      "{$match: {$text: {$search: quick brown fox}}}",
-      "db.posts.updateOne({title: Intro}, {$set: {status: Draft}})"
+      "db.posts.updateOne({title: 'Intro'}, {$set: {status: 'Draft'}})",
+      "db.posts.update({title: 'Intro'}, {status: 'Draft'})",
+      "db.posts.setOne({title: 'Intro'}, {status: 'Draft'})",
+      "db.posts.changeOne({title: 'Intro'}, {$set: {status: 'Draft'}})"
     ],
-    "correctAnswer": "db.posts.updateOne({title: Intro}, {$set: {status: Draft}})",
-    "explanation": "Updates the first document matching the filter."
+    "correctAnswer": "db.posts.updateOne({title: 'Intro'}, {$set: {status: 'Draft'}})",
+    "explanation": "'updateOne' finds the first match and applies the update operators."
   },
   {
-    "question": "What is the command to: Updates all documents (since the filter is empty {}).",
+    "question": "What is the command to: Update all documents in the collection.",
     "options": [
-      "db.users.find({age: 30}, {name: 1, email: 1, _id: 0})",
       "db.posts.updateMany({}, {$set: {version: 1}})",
-      "Flexibility: Avoids large documents and data duplication.",
-      "db.users.updateOne({_id: 1}, {$pop: {scores: 1}})"
+      "db.posts.updateAll({}, {$set: {version: 1}})",
+      "db.posts.update({}, {$set: {version: 1}})",
+      "db.posts.modifyMany({}, {$set: {version: 1}})"
     ],
     "correctAnswer": "db.posts.updateMany({}, {$set: {version: 1}})",
-    "explanation": "Updates all documents (since the filter is empty {})."
+    "explanation": "'updateMany' applies the update to all documents that match the filter (an empty filter {} matches all)."
   },
   {
-    "question": "What is the command to: Deletes the first document matching the filter.",
+    "question": "What is the command to: Delete the first document matching the filter.",
     "options": [
-      "db.posts.deleteOne({status: Draft})",
-      "db.users.updateOne({_id: 1}, {$pop: {scores: 1}})",
-      "db.products.updateOne({_id: 1}, {$mul: {price: 0.8}})",
-      "db.users.updateOne({name: B}, {$set: {age: 25}}, {upsert: true})"
+      "db.posts.deleteOne({status: 'Draft'})",
+      "db.posts.delete({status: 'Draft'})",
+      "db.posts.removeOne({status: 'Draft'})",
+      "db.posts.dropOne({status: 'Draft'})"
     ],
-    "correctAnswer": "db.posts.deleteOne({status: Draft})",
-    "explanation": "Deletes the first document matching the filter."
+    "correctAnswer": "db.posts.deleteOne({status: 'Draft'})",
+    "explanation": "'deleteOne' removes only the first document that matches the criteria."
   },
   {
-    "question": "What is the command to: Deletes all documents matching the filter.",
+    "question": "What is the command to: Delete all documents matching the filter.",
     "options": [
-      "db.users.replaceOne({_id: 1}, {username: newuser, lastLogin: new Date()})",
-      "db.users.updateOne({_id: 1}, {$set: {name: A},",
-      "db.posts.deleteMany({author: A})",
-      "db.users.createIndex({email: 1}, {unique: true})"
+      "db.posts.deleteMany({author: 'A'})",
+      "db.posts.deleteAll({author: 'A'})",
+      "db.posts.removeMany({author: 'A'})",
+      "db.posts.clear({author: 'A'})"
     ],
-    "correctAnswer": "db.posts.deleteMany({author: A})",
-    "explanation": "Deletes all documents matching the filter."
+    "correctAnswer": "db.posts.deleteMany({author: 'A'})",
+    "explanation": "'deleteMany' removes all documents that match the specific filter."
   },
   {
-    "question": "What is the command to: Deletes ALL documents in the collection.",
+    "question": "What is the command to: Delete ALL documents in the 'posts' collection (but keep the collection itself).",
     "options": [
-      "db.products.find({name: /laptop/})",
-      "db.products.updateOne({_id: 1}, {$inc: {qty: 2}})",
       "db.posts.deleteMany({})",
-      "db.users.find({email: {$exists: true}})"
+      "db.posts.drop()",
+      "db.posts.truncate()",
+      "db.posts.clear()"
     ],
     "correctAnswer": "db.posts.deleteMany({})",
-    "explanation": "Deletes ALL documents in the collection."
+    "explanation": "Passing an empty object {} to deleteMany removes all documents but leaves the collection structure and indexes intact."
   },
   {
-    "question": "What is the command to: Finds all documents (no filter).",
+    "question": "What is the command to: Find all documents (equivalent to SELECT *).",
     "options": [
-      "db.products.updateOne({_id: 1}, {$max: {highPrice: 150}})",
       "db.users.find()",
-      "db.users.updateOne({_id: 1}, {$pop: {scores: -1}})",
-      "db.users.updateOne({_id: 1}, {$addToSet: {uniqueTags: {$each: [A, B]}}})"
+      "db.users.search()",
+      "db.users.query({})",
+      "db.users.all()"
     ],
     "correctAnswer": "db.users.find()",
-    "explanation": "Finds all documents (no filter)."
+    "explanation": "Calling find() without parameters returns a cursor iterating over all documents."
   },
   {
-    "question": "What is the command to: Finds documents where age is exactly 30 (implicit $eq).",
+    "question": "What is the command to: Find documents where age is exactly 30.",
     "options": [
-      "{$out: newCollectionName}",
-      "db.users.find({age: {$gt: 30}}).explain(executionStats)",
       "db.users.find({age: 30})",
-      "db.stores.find({invent: {$elemMatch: {name: itemA, qty: {$gte: 5}}})"
+      "db.users.find({age: {$eq: 30}})",
+      "db.users.find('age', 30)",
+      "db.users.where('age == 30')"
     ],
     "correctAnswer": "db.users.find({age: 30})",
-    "explanation": "Finds documents where age is exactly 30 (implicit $eq)."
+    "explanation": "{field: value} is the standard syntax for equality (implicit $eq)."
   },
   {
-    "question": "What is the command to: Finds by filter, but only includes name and email (excluding _id).",
+    "question": "What is the command to: Find matching documents but return ONLY name and email (excluding _id).",
     "options": [
       "db.users.find({age: 30}, {name: 1, email: 1, _id: 0})",
-      "db.users.find({age: {$gt: 30}}).explain(executionStats)",
-      "db.items.find({price: {$eq: 10}})",
-      "db.items.find({qty: {$gte: 50}})"
+      "db.users.find({age: 30}, {name: 1, email: 1})",
+      "db.users.find({age: 30}).select('name email')",
+      "db.users.find({age: 30}).project({name: 1, email: 1})"
     ],
     "correctAnswer": "db.users.find({age: 30}, {name: 1, email: 1, _id: 0})",
-    "explanation": "Finds by filter, but only includes name and email (excluding _id)."
+    "explanation": "The second argument to find() is the projection. _id is included by default unless explicitly set to 0."
   },
   {
-    "question": "What is the command to: Sorts results by age in descending order (-1).",
+    "question": "What is the command to: Sort results by age in descending order.",
     "options": [
-      "db.products.find({tags: {$all: [sale, red]}})",
       "db.users.find({}).sort({age: -1})",
-      "which refers to the users collection.",
-      "Use for 1-to-Many or Many-to-Many relationships."
+      "db.users.find({}).sort({age: 1})",
+      "db.users.find({}).orderBy({age: 'desc'})",
+      "db.users.find({}).sort('age', -1)"
     ],
     "correctAnswer": "db.users.find({}).sort({age: -1})",
-    "explanation": "Sorts results by age in descending order (-1)."
+    "explanation": "In sort(), -1 represents descending order and 1 represents ascending order."
   },
   {
-    "question": "What is the command to: Skips the first 10, then limits to 5 documents (for pagination).",
+    "question": "What is the command to: Skip the first 10 documents, then limit the result to 5 documents.",
     "options": [
       "db.users.find({}).skip(10).limit(5)",
-      "db.users.getIndexes()",
-      "db.products.updateOne({_id: 1}, {$max: {highPrice: 150}})",
-      "db.users.updateMany({},"
+      "db.users.find({}).limit(5).skip(10)",
+      "db.users.find({}).slice(10, 5)",
+      "db.users.find({}).page(2, 5)"
     ],
     "correctAnswer": "db.users.find({}).skip(10).limit(5)",
-    "explanation": "Skips the first 10, then limits to 5 documents (for pagination)."
+    "explanation": "The order of method chaining matters logically (though Mongo optimizes): skip(10) bypasses the first 10, limit(5) returns the next 5."
   },
   {
-    "question": "What is the command to: Finds documents where price equals 10.",
+    "question": "What is the command to: Find documents where price explicitly equals 10.",
     "options": [
       "db.items.find({price: {$eq: 10}})",
-      "db.users.find({age: 30})",
-      "{$lookup: {from: orders, localField: customerId,",
-      "which refers to the users collection."
+      "db.items.find({price: {$is: 10}})",
+      "db.items.find({price: {$equals: 10}})",
+      "db.items.find({price: {$match: 10}})"
     ],
     "correctAnswer": "db.items.find({price: {$eq: 10}})",
-    "explanation": "Finds documents where price equals 10."
+    "explanation": "$eq is the operator for equality, though {price: 10} is usually sufficient."
   },
   {
-    "question": "What is the command to: Finds documents where price is not equal to 10.",
+    "question": "What is the command to: Find documents where price is NOT equal to 10.",
     "options": [
-      "{$lookup: {from: orders, localField: customerId,",
-      "db.users.find({email: {$exists: true}})",
       "db.items.find({price: {$ne: 10}})",
-      "db.logs.find({createdAt: {$gte: ISODate(...) , $lt: ISODate(...)}})"
+      "db.items.find({price: {$not: 10}})",
+      "db.items.find({price: {$neq: 10}})",
+      "db.items.find({price: {$diff: 10}})"
     ],
     "correctAnswer": "db.items.find({price: {$ne: 10}})",
-    "explanation": "Finds documents where price is not equal to 10."
+    "explanation": "$ne stands for 'not equal'."
   },
   {
-    "question": "What is the command to: Finds documents where qty is greater than 50.",
+    "question": "What is the command to: Find documents where qty is greater than 50.",
     "options": [
       "db.items.find({qty: {$gt: 50}})",
-      "{$match: {status: Active, amount: {$gte: 100}}}",
-      "{$unwind: {path: $items, includeArrayIndex: itemIndex}}",
-      "db.users.replaceOne({_id: 1}, {username: newuser, lastLogin: new Date()})"
+      "db.items.find({qty: {$gte: 50}})",
+      "db.items.find({qty: {$more: 50}})",
+      "db.items.find({qty: {$high: 50}})"
     ],
     "correctAnswer": "db.items.find({qty: {$gt: 50}})",
-    "explanation": "Finds documents where qty is greater than 50."
+    "explanation": "$gt stands for 'greater than'."
   },
   {
-    "question": "What is the command to: Finds documents where qty is greater than or equal to 50.",
+    "question": "What is the command to: Find documents where qty is greater than or equal to 50.",
     "options": [
       "db.items.find({qty: {$gte: 50}})",
-      "db.products.find({name: /laptop/})",
-      "db.posts.findOne({author: A})",
-      "db.stores.find({invent: {$elemMatch: {name: itemA, qty: {$gte: 5}}})"
+      "db.items.find({qty: {$gt: 50}})",
+      "db.items.find({qty: {$ge: 50}})",
+      "db.items.find({qty: {$min: 50}})"
     ],
     "correctAnswer": "db.items.find({qty: {$gte: 50}})",
-    "explanation": "Finds documents where qty is greater than or equal to 50."
+    "explanation": "$gte stands for 'greater than or equal'."
   },
   {
-    "question": "What is the command to: Finds documents where qty is less than 100.",
+    "question": "What is the command to: Find documents where qty is less than 100.",
     "options": [
       "db.items.find({qty: {$lt: 100}})",
-      "db.products.find({size: {$in: [S, M]}})",
-      "ACID properties are guaranteed for single document operations by default;",
-      "db.users.updateOne({_id: 1}, {$pop: {scores: 1}})"
+      "db.items.find({qty: {$lte: 100}})",
+      "db.items.find({qty: {$less: 100}})",
+      "db.items.find({qty: {$low: 100}})"
     ],
     "correctAnswer": "db.items.find({qty: {$lt: 100}})",
-    "explanation": "Finds documents where qty is less than 100."
+    "explanation": "$lt stands for 'less than'."
   },
   {
-    "question": "What is the command to: Finds documents where qty is less than or equal to 100.",
+    "question": "What is the command to: Find documents where qty is less than or equal to 100.",
     "options": [
       "db.items.find({qty: {$lte: 100}})",
-      "db.users.find({}).skip(10).limit(5)",
-      "{$sort: {total: -1, name: 1}}",
-      "Flexibility: Avoids large documents and data duplication."
+      "db.items.find({qty: {$lt: 100}})",
+      "db.items.find({qty: {$le: 100}})",
+      "db.items.find({qty: {$max: 100}})"
     ],
     "correctAnswer": "db.items.find({qty: {$lte: 100}})",
-    "explanation": "Finds documents where qty is less than or equal to 100."
+    "explanation": "$lte stands for 'less than or equal'."
   },
   {
-    "question": "What is the command to: Finds documents where either condition is true.",
+    "question": "What is the command to: Find documents where either condition (qty < 5 OR price > 20) is true.",
     "options": [
-      "{$group: {_id: $user, uniqueItems: {$addToSet: $productName}}}",
       "db.items.find({$or: [{qty: {$lt: 5}}, {price: {$gt: 20}}]})",
-      "Referencing involves storing related data in",
-      "db.products.updateOne({_id: 1}, {$inc: {qty: 2}})"
+      "db.items.find({$and: [{qty: {$lt: 5}}, {price: {$gt: 20}}]})",
+      "db.items.find({qty: {$lt: 5}, price: {$gt: 20}})",
+      "db.items.find({$either: [{qty: {$lt: 5}}, {price: {$gt: 20}}]})"
     ],
     "correctAnswer": "db.items.find({$or: [{qty: {$lt: 5}}, {price: {$gt: 20}}]})",
-    "explanation": "Finds documents where either condition is true."
+    "explanation": "$or takes an array of conditions and matches if at least one is true."
   },
   {
-    "question": "What is the command to: Finds documents where both conditions are true (often implicit in standard query).",
+    "question": "What is the command to: Find documents where both conditions (qty > 5 AND price < 10) are true.",
     "options": [
-      "show collections",
       "db.items.find({$and: [{qty: {$gt: 5}}, {price: {$lt: 10}}]})",
-      "ACID properties are guaranteed for single document operations by default;",
-      "{$sort: {total: -1, name: 1}}"
+      "db.items.find({$or: [{qty: {$gt: 5}}, {price: {$lt: 10}}]})",
+      "db.items.find({$both: [{qty: {$gt: 5}}, {price: {$lt: 10}}]})",
+      "db.items.find({qty: {$gt: 5}}).find({price: {$lt: 10}})"
     ],
     "correctAnswer": "db.items.find({$and: [{qty: {$gt: 5}}, {price: {$lt: 10}}]})",
-    "explanation": "Finds documents where both conditions are true (often implicit in standard query)."
+    "explanation": "$and requires all conditions to be true. Note: Implicit AND {qty: {$gt: 5}, price: {$lt: 10}} also works."
   },
   {
-    "question": "What is the command to: Finds documents where price is not greater than 20.",
+    "question": "What is the command to: Find documents where price is NOT greater than 20.",
     "options": [
-      "db.users.updateOne({_id: 1}, {$addToSet: {uniqueTags: A}})",
       "db.items.find({price: {$not: {$gt: 20}}})",
-      "db.users.replaceOne({_id: 1}, {username: newuser, lastLogin: new Date()})",
-      "db.logs.updateOne({_id: 1},"
+      "db.items.find({price: {$!gt: 20}})",
+      "db.items.find({price: {$ng: 20}})",
+      "db.items.find({price: {$not: 20}})"
     ],
     "correctAnswer": "db.items.find({price: {$not: {$gt: 20}}})",
-    "explanation": "Finds documents where price is not greater than 20."
+    "explanation": "$not inverts the effect of a query expression (effectively finding price <= 20 or price does not exist)."
   },
   {
-    "question": "What is the command to: Finds documents where neither condition is true.",
+    "question": "What is the command to: Find documents where neither condition is true (qty is NOT 10 AND price is NOT 5).",
     "options": [
       "db.items.find({$nor: [{qty: 10}, {price: 5}]})",
-      "db.products.find({name: /laptop/})",
-      "db.products.find({name: {$regex: laptop, $options: i}})",
-      "{$out: newCollectionName}"
+      "db.items.find({$not: [{qty: 10}, {price: 5}]})",
+      "db.items.find({$nand: [{qty: 10}, {price: 5}]})",
+      "db.items.find({$neither: [{qty: 10}, {price: 5}]})"
     ],
     "correctAnswer": "db.items.find({$nor: [{qty: 10}, {price: 5}]})",
-    "explanation": "Finds documents where neither condition is true."
+    "explanation": "$nor (Not OR) matches documents that fail all the specified conditions."
   },
   {
-    "question": "What is the command to: Finds documents where size value is one of the values in the array.",
+    "question": "What is the command to: Find documents where size is one of the values: 'S' or 'M'.",
     "options": [
-      "db.users.find({}).skip(10).limit(5)",
-      "db.items.find({price: {$not: {$gt: 20}}})",
-      "db.products.find({size: {$in: [S, M]}})",
-      "{$project: {content: 0, _id: 0}}"
+      "db.products.find({size: {$in: ['S', 'M']}})",
+      "db.products.find({size: {$or: ['S', 'M']}})",
+      "db.products.find({size: ['S', 'M']})",
+      "db.products.find({size: {$include: ['S', 'M']}})"
     ],
-    "correctAnswer": "db.products.find({size: {$in: [S, M]}})",
-    "explanation": "Finds documents where size value is one of the values in the array."
+    "correctAnswer": "db.products.find({size: {$in: ['S', 'M']}})",
+    "explanation": "$in matches any value specified in the array."
   },
   {
-    "question": "What is the command to: Finds documents where size value is none of the values in the array.",
+    "question": "What is the command to: Find documents where size is NOT any of the values: 'S' or 'M'.",
     "options": [
-      "Read Performance: One query retrieves all necessary data.",
-      "db.products.find({size: {$nin: [S, M]}})",
-      "db.items.find({qty: {$gte: 50}})",
-      "db.posts.updateMany({}, {$set: {version: 1}})"
+      "db.products.find({size: {$nin: ['S', 'M']}})",
+      "db.products.find({size: {$notIn: ['S', 'M']}})",
+      "db.products.find({size: {$out: ['S', 'M']}})",
+      "db.products.find({size: {$exclude: ['S', 'M']}})"
     ],
-    "correctAnswer": "db.products.find({size: {$nin: [S, M]}})",
-    "explanation": "Finds documents where size value is none of the values in the array."
+    "correctAnswer": "db.products.find({size: {$nin: ['S', 'M']}})",
+    "explanation": "$nin stands for 'not in'."
   },
   {
-    "question": "What is the command to: Finds documents where the tags array contains all the specified elements.",
+    "question": "What is the command to: Find documents where the 'tags' array contains ALL specified elements ('sale', 'red').",
     "options": [
-      "db.products.find({tags: {$all: [sale, red]}})",
-      "{$out: newCollectionName}",
-      "which refers to the users collection.",
-      "db.users.updateOne({_id: 1}, {$addToSet: {uniqueTags: A}})"
+      "db.products.find({tags: {$all: ['sale', 'red']}})",
+      "db.products.find({tags: {$in: ['sale', 'red']}})",
+      "db.products.find({tags: ['sale', 'red']})",
+      "db.products.find({tags: {$both: ['sale', 'red']}})"
     ],
-    "correctAnswer": "db.products.find({tags: {$all: [sale, red]}})",
-    "explanation": "Finds documents where the tags array contains all the specified elements."
+    "correctAnswer": "db.products.find({tags: {$all: ['sale', 'red']}})",
+    "explanation": "$all requires the array field to contain every element listed, regardless of order."
   },
   {
-    "question": "What is the command to: Finds documents where the tags array has exactly 3 elements.",
+    "question": "What is the command to: Find documents where the 'tags' array has exactly 3 elements.",
     "options": [
-      "db.products.find({name: {$regex: laptop, $options: i}})",
-      "db.items.find({$and: [{qty: {$gt: 5}}, {price: {$lt: 10}}]})",
-      "90]}}},Selectively filters elements within an array based on a condition.",
-      "db.products.find({tags: {$size: 3}})"
+      "db.products.find({tags: {$size: 3}})",
+      "db.products.find({tags: {$length: 3}})",
+      "db.products.find({tags: {$count: 3}})",
+      "db.products.find({'tags.length': 3})"
     ],
     "correctAnswer": "db.products.find({tags: {$size: 3}})",
-    "explanation": "Finds documents where the tags array has exactly 3 elements."
+    "explanation": "$size matches arrays with a specific number of elements."
   },
   {
-    "question": "What is the command to: Finds documents where the invent array has at least",
+    "question": "What is the command to: Find documents where the 'invent' array contains an object that matches both {name: 'itemA', qty: >= 5}.",
     "options": [
-      "db.items.find({price: {$ne: 10}})",
-      "db.stores.find({invent: {$elemMatch: {name: itemA, qty: {$gte: 5}}})",
-      "db.users.updateOne({_id: 1}, {$pop: {scores: 1}})",
-      "db.products.find({tags: {$all: [sale, red]}})"
+      "db.stores.find({invent: {$elemMatch: {name: 'itemA', qty: {$gte: 5}}}})",
+      "db.stores.find({invent: {name: 'itemA', qty: {$gte: 5}}})",
+      "db.stores.find({'invent.name': 'itemA', 'invent.qty': {$gte: 5}})",
+      "db.stores.find({invent: {$has: {name: 'itemA', qty: {$gte: 5}}}})"
     ],
-    "correctAnswer": "db.stores.find({invent: {$elemMatch: {name: itemA, qty: {$gte: 5}}})",
-    "explanation": "Finds documents where the invent array has at least"
+    "correctAnswer": "db.stores.find({invent: {$elemMatch: {name: 'itemA', qty: {$gte: 5}}}})",
+    "explanation": "$elemMatch is crucial here. It ensures a *single* element in the array satisfies all criteria."
   },
   {
-    "question": "What is the command to: Finds documents where name contains laptop (case-sensitive).",
+    "question": "What is the command to: Find documents where name contains 'laptop' (case-sensitive regex).",
     "options": [
       "db.products.find({name: /laptop/})",
-      "db.users.updateOne({_id: 1}, {$pullAll: {tags: [old1, old2]}})",
-      "Referencing (e.g., a student enrolled in many courses, and vice versa).",
-      "db.posts.insertMany([{t: P1}, {t: P2}])"
-    ],
-    "correctAnswer": "db.products.find({name: /laptop/})",
-    "explanation": "Finds documents where name contains laptop (case-sensitive)."
-  },
-  {
-    "question": "What is the command to: Finds documents where name contains laptop (case-insensitive).",
-    "options": [
-      "db.posts.deleteOne({status: Draft})",
-      "db.users.updateOne({_id: 1}, {$pull: {tags: old}})",
-      "db.products.find({name: /laptop/i})",
-      "db.users.find({$expr: {$gt: [$qty, $reorderPoint]}})"
-    ],
-    "correctAnswer": "db.products.find({name: /laptop/i})",
-    "explanation": "Finds documents where name contains laptop (case-insensitive)."
-  },
-  {
-    "question": "What is the command to: Finds documents where name starts with MacBook.",
-    "options": [
-      "db.users.updateOne({_id: 1}, {$pullAll: {tags: [old1, old2]}})",
-      "db.products.find({name: /^MacBook/})",
-      "show dbs",
-      "db.users.find({age: 30})"
-    ],
-    "correctAnswer": "db.products.find({name: /^MacBook/})",
-    "explanation": "Finds documents where name starts with MacBook."
-  },
-  {
-    "question": "What is the command to: Finds documents where name ends with Pro.",
-    "options": [
-      "{$group: {_id: {$year: $dateField}, count: {$sum: 1}}}",
-      "db.posts.insertOne({title: Intro, author: A})",
-      "db.products.find({name: /Pro$/})",
-      "db.posts.find()"
-    ],
-    "correctAnswer": "db.products.find({name: /Pro$/})",
-    "explanation": "Finds documents where name ends with Pro."
-  },
-  {
-    "question": "What is the command to: Finds using the explicit $regex operator with options.",
-    "options": [
-      "db.users.find({}).sort({age: -1})",
-      "db.products.find({name: {$regex: laptop, $options: i}})",
-      "{$out: newCollectionName}",
-      "db.posts.find()"
-    ],
-    "correctAnswer": "db.products.find({name: {$regex: laptop, $options: i}})",
-    "explanation": "Finds using the explicit $regex operator with options."
-  },
-  {
-    "question": "What is the command to: Sets a field's value; creates the field if it doesn't exist.",
-    "options": [
-      "db.users.drop()",
-      "show dbs",
-      "db.users.updateOne({_id: 1}, {$addToSet: {uniqueTags: A}})",
-      "db.users.updateOne({name: A}, {$set: {age: 30}})"
-    ],
-    "correctAnswer": "db.users.updateOne({name: A}, {$set: {age: 30}})",
-    "explanation": "Sets a field's value; creates the field if it doesn't exist."
-  },
-  {
-    "question": "What is the command to: Removes the specified field from the document.",
-    "options": [
-      "show collections",
-      "db.users.updateOne({name: A}, {$unset: {age: }})",
-      "db.users.updateMany({}, {$set: {grades.$[elem].status: Passed}},",
-      "db.products.find({size: {$nin: [S, M]}})"
-    ],
-    "correctAnswer": "db.users.updateOne({name: A}, {$unset: {age: }})",
-    "explanation": "Removes the specified field from the document."
-  },
-  {
-    "question": "What is the command to: Renames a field from age to yearsOld.",
-    "options": [
-      "{$group: {_id: {$year: $dateField}, count: {$sum: 1}}}",
-      "{$facet: {categoryBreakdown: [...], priceRange: [...]}}",
-      "db.users.updateOne({name: A}, {$rename: {age: yearsOld}})",
-      "db.users.updateOne({_id: 1}, {$pull: {tags: old}})"
-    ],
-    "correctAnswer": "db.users.updateOne({name: A}, {$rename: {age: yearsOld}})",
-    "explanation": "Renames a field from age to yearsOld."
-  },
-  {
-    "question": "What is the command to: Increments the qty field by 2.",
-    "options": [
-      "db.users.updateOne({name: B}, {$set: {age: 25}}, {upsert: true})",
-      "db.products.find({size: {$nin: [S, M]}})",
-      "db.products.updateOne({_id: 1}, {$inc: {qty: 2}})",
-      "db.posts.deleteMany({author: A})"
-    ],
-    "correctAnswer": "db.products.updateOne({_id: 1}, {$inc: {qty: 2}})",
-    "explanation": "Increments the qty field by 2."
-  },
-  {
-    "question": "What is the command to: Multiplies the price field by 0.8 (20% discount).",
-    "options": [
-      "db.products.updateOne({_id: 1}, {$mul: {price: 0.8}})",
-      "db.users.drop()",
-      "{$max: $price}",
-      "session.startTransaction()"
-    ],
-    "correctAnswer": "db.products.updateOne({_id: 1}, {$mul: {price: 0.8}})",
-    "explanation": "Multiplies the price field by 0.8 (20% discount)."
-  },
-  {
-    "question": "What is the command to: Updates lowPrice only if the new value (50) is less than the current value.",
-    "options": [
-      "{$project: {highScores: {$filter:",
-      "db.logs.find({createdAt: {$gte: ISODate(2025-10-01T00:00:00Z)}",
-      "db.products.updateOne({_id: 1}, {$min: {lowPrice: 50}})",
-      "db.items.find({qty: {$gte: 50}})"
-    ],
-    "correctAnswer": "db.products.updateOne({_id: 1}, {$min: {lowPrice: 50}})",
-    "explanation": "Updates lowPrice only if the new value (50) is less than the current value."
-  },
-  {
-    "question": "What is the command to: Updates highPrice only if the new value (150) is greater than the current value.",
-    "options": [
-      "{$skip: 5}",
-      "db.products.updateOne({_id: 1}, {$max: {highPrice: 150}})",
-      "db.products.find({name: /laptop/})",
-      "db.posts.findOne({author: A})"
-    ],
-    "correctAnswer": "db.products.updateOne({_id: 1}, {$max: {highPrice: 150}})",
-    "explanation": "Updates highPrice only if the new value (150) is greater than the current value."
-  },
-  {
-    "question": "What is the command to: Sets lastModified to the current datetime (as a BSON Date).",
-    "options": [
-      "db.users.find({email: {$exists: true}})",
-      "db.items.find({$or: [{qty: {$lt: 5}}, {price: {$gt: 20}}]})",
-      "db.items.find({$nor: [{qty: 10}, {price: 5}]})",
-      "db.logs.updateOne({_id: 1}, {$currentDate: {lastModified: true}})"
-    ],
-    "correctAnswer": "db.logs.updateOne({_id: 1}, {$currentDate: {lastModified: true}})",
-    "explanation": "Sets lastModified to the current datetime (as a BSON Date)."
-  },
-  {
-    "question": "What is the command to: Removes the last element from the scores array.",
-    "options": [
-      "{$project: {highScores: {$filter:",
-      "show collections",
-      "db.posts.findOne({author: A})",
-      "db.users.updateOne({_id: 1}, {$pop: {scores: 1}})"
-    ],
-    "correctAnswer": "db.users.updateOne({_id: 1}, {$pop: {scores: 1}})",
-    "explanation": "Removes the last element from the scores array."
-  },
-  {
-    "question": "What is the command to: Removes the first element from the scores array.",
-    "options": [
-      "db.products.find({name: {$regex: laptop, $options: i}})",
-      "db.users.updateOne({_id: 1}, {$pop: {scores: -1}})",
-      "db.products.find({size: {$nin: [S, M]}})",
-      "db.users.updateOne({_id: 1}, {$addToSet: {uniqueTags: {$each: [A, B]}}})"
-    ],
-    "correctAnswer": "db.users.updateOne({_id: 1}, {$pop: {scores: -1}})",
-    "explanation": "Removes the first element from the scores array."
-  },
-  {
-    "question": "What is the command to: Appends the value new to the tags array.",
-    "options": [
-      "db.users.updateMany({}, {$set: {grades.$[elem].status: Passed}},",
-      "db.dropDatabase()",
-      "db.items.find({$or: [{qty: {$lt: 5}}, {price: {$gt: 20}}]})",
-      "db.users.updateOne({_id: 1}, {$push: {tags: new}})"
-    ],
-    "correctAnswer": "db.users.updateOne({_id: 1}, {$push: {tags: new}})",
-    "explanation": "Appends the value new to the tags array."
-  },
-  {
-    "question": "What is the command to: Appends multiple values to the array.",
-    "options": [
-      "{$out: newCollectionName}",
-      "show dbs",
-      "db.users.updateOne({_id: 1}, {$push: {tags: {$each: [A, B]}}})",
-      "Embedding is generally preferred (e.g., a user and their unique profile)."
-    ],
-    "correctAnswer": "db.users.updateOne({_id: 1}, {$push: {tags: {$each: [A, B]}}})",
-    "explanation": "Appends multiple values to the array."
-  },
-  {
-    "question": "What is the command to: Appends, but limits the array size to the last 5 elements.",
-    "options": [
-      "Embedding is generally preferred (e.g., a user and their unique profile).",
-      "db.users.replaceOne({_id: 1}, {username: newuser, lastLogin: new Date()})",
-      "db.logs.find({createdAt: {$gte: ISODate(...) , $lt: ISODate(...)}})",
-      "db.users.updateOne({_id: 1}, {$push: {log: {$each: [1, 2, 3], $slice: -5}}})"
-    ],
-    "correctAnswer": "db.users.updateOne({_id: 1}, {$push: {log: {$each: [1, 2, 3], $slice: -5}}})",
-    "explanation": "Appends, but limits the array size to the last 5 elements."
-  },
-  {
-    "question": "What is the command to: Adds A to the array only if it doesn't already exist (prevents duplicates).",
-    "options": [
-      "db.users.updateOne({_id: 1}, {$addToSet: {uniqueTags: A}})",
-      "{$limit: 10}",
-      "db.users.dropIndex(email_1)",
-      "db.users.drop()"
-    ],
-    "correctAnswer": "db.users.updateOne({_id: 1}, {$addToSet: {uniqueTags: A}})",
-    "explanation": "Adds A to the array only if it doesn't already exist (prevents duplicates)."
-  },
-  {
-    "question": "What is the command to: Adds multiple unique values to the array.",
-    "options": [
-      "db.users.updateOne({_id: 1}, {$addToSet: {uniqueTags: {$each: [A, B]}}})",
-      "{$project: {highScores: {$filter:",
-      "db.products.find({name: {$regex: laptop, $options: i}})",
-      "db.users.updateOne({name: A}, {$unset: {age: }})"
-    ],
-    "correctAnswer": "db.users.updateOne({_id: 1}, {$addToSet: {uniqueTags: {$each: [A, B]}}})",
-    "explanation": "Adds multiple unique values to the array."
-  },
-  {
-    "question": "What is the command to: Removes all occurrences of the specific value old from the array.",
-    "options": [
-      "Referencing (e.g., a student enrolled in many courses, and vice versa).",
-      "db.users.updateOne({_id: 1}, {$pull: {tags: old}})",
-      "db.users.updateOne({name: A}, {$unset: {age: }})",
-      "db.items.find({price: {$not: {$gt: 20}}})"
-    ],
-    "correctAnswer": "db.users.updateOne({_id: 1}, {$pull: {tags: old}})",
-    "explanation": "Removes all occurrences of the specific value old from the array."
-  },
-  {
-    "question": "What is the command to: Removes all instances of all specified values from the array.",
-    "options": [
-      "db.stores.find({invent: {$elemMatch: {name: itemA, qty: {$gte: 5}}})",
-      "db.items.find({price: {$not: {$gt: 20}}})",
-      "db.users.updateOne({_id: 1}, {$pullAll: {tags: [old1, old2]}})",
-      "db.items.find({$nor: [{qty: 10}, {price: 5}]})"
-    ],
-    "correctAnswer": "db.users.updateOne({_id: 1}, {$pullAll: {tags: [old1, old2]}})",
-    "explanation": "Removes all instances of all specified values from the array."
-  },
-  {
-    "question": "What is the command to: Increments the score field for all elements in the grades array of all documents.",
-    "options": [
-      "Embedding is ideal (e.g., a book and its 5-10 reviews).",
-      "{$facet: {categoryBreakdown: [...], priceRange: [...]}}",
-      "db.users.updateMany({}, {$inc: {grades.$[].score: 5}})",
-      "db.logs.find({createdAt: {$lte: ISODate(2025-10-31T23:59:59Z)}"
-    ],
-    "correctAnswer": "db.users.updateMany({}, {$inc: {grades.$[].score: 5}})",
-    "explanation": "Increments the score field for all elements in the grades array of all documents."
-  },
-  {
-    "question": "What is the command to: Replaces the entire document matching the filter with the new document (keeps _id).",
-    "options": [
-      "db.users.replaceOne({_id: 1}, {username: newuser, lastLogin: new Date()})",
-      "db.products.find({name: /laptop/i})",
-      "{$group: {_id: $category, totalSales: {$sum: $price}}}",
-      "db.products.updateOne({_id: 1}, {$mul: {price: 0.8}})"
-    ],
-    "correctAnswer": "db.users.replaceOne({_id: 1}, {username: newuser, lastLogin: new Date()})",
-    "explanation": "Replaces the entire document matching the filter with the new document (keeps _id)."
-  },
-  {
-    "question": "What is the command to: Finds documents created on or after a specific date.",
-    "options": [
-      "90]}}},Selectively filters elements within an array based on a condition.",
-      "db.items.find({price: {$ne: 10}})",
-      "db.logs.find({createdAt: {$gte: ISODate(2025-10-01T00:00:00Z)}",
-      "{$sort: {total: -1, name: 1}}"
-    ],
-    "correctAnswer": "db.logs.find({createdAt: {$gte: ISODate(2025-10-01T00:00:00Z)}",
-    "explanation": "Finds documents created on or after a specific date."
-  },
-  {
-    "question": "What is the command to: Finds documents created on or before a specific date (end of month).",
-    "options": [
-      "db.products.find({name: /laptop/i})",
-      "db.users.updateOne({_id: 1}, {$pullAll: {tags: [old1, old2]}})",
-      "db.users.createIndex({email: 1}, {unique: true})",
-      "db.logs.find({createdAt: {$lte: ISODate(2025-10-31T23:59:59Z)}"
-    ],
-    "correctAnswer": "db.logs.find({createdAt: {$lte: ISODate(2025-10-31T23:59:59Z)}",
-    "explanation": "Finds documents created on or before a specific date (end of month)."
-  },
-  {
-    "question": "What is the command to: Finds documents within a specific date range.",
-    "options": [
-      "db.logs.find({createdAt: {$gte: ISODate(...) , $lt: ISODate(...)}})",
-      "db.products.find({name: /laptop/})",
-      "db.users.find()",
-      "db.logs.find({createdAt: {$lte: ISODate(2025-10-31T23:59:59Z)}"
-    ],
-    "correctAnswer": "db.logs.find({createdAt: {$gte: ISODate(...) , $lt: ISODate(...)}})",
-    "explanation": "Finds documents within a specific date range."
-  },
-  {
-    "question": "What is the command to: Extracts the year from dateField for grouping.",
-    "options": [
-      "{$group: {_id: {$year: $dateField}, count: {$sum: 1}}}",
-      "{$limit: 10}",
-      "{$group: {_id: $category, totalSales: {$sum: $price}}}",
-      "db.users.find()"
-    ],
-    "correctAnswer": "{$group: {_id: {$year: $dateField}, count: {$sum: 1}}}",
-    "explanation": "Extracts the year from dateField for grouping."
-  },
-  {
-    "question": "What is the command to: Extracts the month from dateField for grouping.",
-    "options": [
-      "{$group: {_id: {$month: $dateField}, count: {$sum: 1}}}",
-      "Referencing (e.g., a student enrolled in many courses, and vice versa).",
-      "db.users.find({_id: {$type: 7}})",
-      "db.products.find({tags: {$size: 3}})"
-    ],
-    "correctAnswer": "{$group: {_id: {$month: $dateField}, count: {$sum: 1}}}",
-    "explanation": "Extracts the month from dateField for grouping."
-  },
-  {
-    "question": "What is the command to: Extracts the day of the week (1=Sunday, 7=Saturday).",
-    "options": [
-      "db.users.createIndex({email: 1}, {unique: true})",
-      "use <databaseName>",
-      "{$group: {_id: {$dayOfWeek: $dateField}, count: {$sum: 1}}}",
-      "db.logs.find({createdAt: {$gte: ISODate(2025-10-01T00:00:00Z)}"
-    ],
-    "correctAnswer": "{$group: {_id: {$dayOfWeek: $dateField}, count: {$sum: 1}}}",
-    "explanation": "Extracts the day of the week (1=Sunday, 7=Saturday)."
-  },
-  {
-    "question": "What is the command to: E.g., Storing 10-15 comments directly in the post document.",
-    "options": [
-      "Embedding involves storing related data within a single document.",
-      "Referencing involves storing related data in",
-      "db.users.find({}).sort({age: -1})",
-      "db.logs.find({createdAt: {$gte: ISODate(2025-10-01T00:00:00Z)}"
-    ],
-    "correctAnswer": "Embedding involves storing related data within a single document.",
-    "explanation": "E.g., Storing 10-15 comments directly in the post document."
-  },
-  {
-    "question": "What is the command to: When the related data is frequently accessed together and does not grow unbounded.",
-    "options": [
-      "db.users.find({age: 30})",
-      "Use for 1-to-1 or 1-to-Few relationships.",
-      "{$unwind: $tags}",
-      "{$lookup: {from: orders, localField: customerId,"
-    ],
-    "correctAnswer": "Use for 1-to-1 or 1-to-Few relationships.",
-    "explanation": "When the related data is frequently accessed together and does not grow unbounded."
-  },
-  {
-    "question": "What is the command to: Faster retrieval and ensures data consistency (atomic updates to a single document).",
-    "options": [
-      "Read Performance: One query retrieves all necessary data.",
-      "Referencing involves storing related data in",
-      "db.items.find({price: {$ne: 10}})",
-      "db.products.updateOne({_id: 1}, {$max: {highPrice: 150}})"
-    ],
-    "correctAnswer": "Read Performance: One query retrieves all necessary data.",
-    "explanation": "Faster retrieval and ensures data consistency (atomic updates to a single document)."
-  },
-  {
-    "question": "What is the command to: When related data is large, changes frequently, or the array would be unboundedly large.",
-    "options": [
-      "db.users.updateOne({_id: 1}, {$push: {tags: new}})",
-      "Use for 1-to-Many or Many-to-Many relationships.",
-      "session.commitTransaction()",
-      "db.products.updateOne({_id: 1}, {$mul: {price: 0.8}})"
-    ],
-    "correctAnswer": "Use for 1-to-Many or Many-to-Many relationships.",
-    "explanation": "When related data is large, changes frequently, or the array would be unboundedly large."
-  },
-  {
-    "question": "What is the command to: Better for collections requiring frequent updates or managing large related datasets.",
-    "options": [
-      "{$project: {status: {$cond: {if: {$gt: [$qty, 100]}, then: High, else: Low}}}}",
-      "db.items.find({price: {$eq: 10}})",
-      "Flexibility: Avoids large documents and data duplication.",
-      "session.commitTransaction()"
-    ],
-    "correctAnswer": "Flexibility: Avoids large documents and data duplication.",
-    "explanation": "Better for collections requiring frequent updates or managing large related datasets."
-  },
-  {
-    "question": "What is the command to: Referencing only needed if the related data is huge/rarely accessed.",
-    "options": [
-      "Embedding is generally preferred (e.g., a user and their unique profile).",
-      "db.users.updateMany({}, {$inc: {grades.$[].score: 5}})",
-      "db.users.updateOne({_id: 1}, {$pull: {tags: old}})",
-      "Embedding involves storing related data within a single document."
-    ],
-    "correctAnswer": "Embedding is generally preferred (e.g., a user and their unique profile).",
-    "explanation": "Referencing only needed if the related data is huge/rarely accessed."
-  },
-  {
-    "question": "What is the command to: Few means the array is small and won't exceed the 16MB document size limit.",
-    "options": [
-      "Embedding is ideal (e.g., a book and its 5-10 reviews).",
-      "session.startTransaction()",
-      "db.products.find({name: /laptop/i})",
-      "db.users.updateOne({_id: 1}, {$addToSet: {uniqueTags: {$each: [A, B]}}})"
-    ],
-    "correctAnswer": "Embedding is ideal (e.g., a book and its 5-10 reviews).",
-    "explanation": "Few means the array is small and won't exceed the 16MB document size limit."
-  },
-  {
-    "question": "What is the command to: The Many side holds the reference ID to the One side.",
-    "options": [
-      "db.users.find()",
-      "Referencing is required (e.g., a category to 1000s of products).",
-      "{$project: {content: 0, _id: 0}}",
-      "db.products.find({size: {$nin: [S, M]}})"
-    ],
-    "correctAnswer": "Referencing is required (e.g., a category to 1000s of products).",
-    "explanation": "The Many side holds the reference ID to the One side."
-  },
-  {
-    "question": "What is the command to: Typically, a third collection (join-like) or arrays on both sides holding the reference IDs.",
-    "options": [
-      "db.users.updateMany({},",
-      "Referencing (e.g., a student enrolled in many courses, and vice versa).",
-      "db.items.find({price: {$not: {$gt: 20}}})",
-      "db.products.find({size: {$nin: [S, M]}})"
-    ],
-    "correctAnswer": "Referencing (e.g., a student enrolled in many courses, and vice versa).",
-    "explanation": "Typically, a third collection (join-like) or arrays on both sides holding the reference IDs."
-  },
-  {
-    "question": "What is the command to: Filters documents to pass only those that match the criteria",
-    "options": [
-      "{$match: {status: Active, amount: {$gte: 100}}}",
-      "db.users.updateOne({_id: 1}, {$pop: {scores: -1}})",
-      "Use for 1-to-Many or Many-to-Many relationships.",
-      "db.dropDatabase()"
-    ],
-    "correctAnswer": "{$match: {status: Active, amount: {$gte: 100}}}",
-    "explanation": "Filters documents to pass only those that match the criteria"
-  },
-  {
-    "question": "What is the command to: Groups documents by a field ($category) and calculates an aggregate value.",
-    "options": [
-      "db.posts.findOne({author: A})",
-      "{$group: {_id: $category, totalSales: {$sum: $price}}}",
-      "db.users.updateOne({grades.score: 80},",
-      "db.products.find({size: {$nin: [S, M]}})"
-    ],
-    "correctAnswer": "{$group: {_id: $category, totalSales: {$sum: $price}}}",
-    "explanation": "Groups documents by a field ($category) and calculates an aggregate value."
-  },
-  {
-    "question": "What is the command to: Calculates the total count of documents in the group.",
-    "options": [
-      "{$sum: 1}",
-      "db.users.updateOne({_id: 1}, {$set: {name: A},",
-      "db.items.find({$and: [{qty: {$gt: 5}}, {price: {$lt: 10}}]})",
-      "db.users.updateOne({_id: 1}, {$addToSet: {uniqueTags: {$each: [A, B]}}})"
-    ],
-    "correctAnswer": "{$sum: 1}",
-    "explanation": "Calculates the total count of documents in the group."
-  },
-  {
-    "question": "What is the command to: Calculates the average of the score field for documents in the group.",
-    "options": [
-      "Referencing (e.g., a student enrolled in many courses, and vice versa).",
-      "show dbs",
-      "{$avg: $score}",
-      "{$min: $price}"
-    ],
-    "correctAnswer": "{$avg: $score}",
-    "explanation": "Calculates the average of the score field for documents in the group."
-  },
-  {
-    "question": "What is the command to: Calculates the minimum value of the price field in the group.",
-    "options": [
-      "{$min: $price}",
-      "db.users.updateOne({_id: 1}, {$push: {tags: {$each: [A, B]}}})",
-      "db.posts.insertOne({title: Intro, author: A})",
-      "db.posts.insertMany([{t: P1}, {t: P2}])"
-    ],
-    "correctAnswer": "{$min: $price}",
-    "explanation": "Calculates the minimum value of the price field in the group."
-  },
-  {
-    "question": "What is the command to: Calculates the maximum value of the price field in the group.",
-    "options": [
-      "db.users.updateOne({_id: 1}, {$push: {tags: {$each: [A, B]}}})",
-      "{$max: $price}",
-      "show collections",
-      "db.dropDatabase()"
-    ],
-    "correctAnswer": "{$max: $price}",
-    "explanation": "Calculates the maximum value of the price field in the group."
-  },
-  {
-    "question": "What is the command to: Creates an array of all product names for each user.",
-    "options": [
-      "show collections",
-      "db.logs.find({createdAt: {$lte: ISODate(2025-10-31T23:59:59Z)}",
-      "{$group: {_id: $user, items: {$push: $productName}}}",
-      "which refers to the users collection."
-    ],
-    "correctAnswer": "{$group: {_id: $user, items: {$push: $productName}}}",
-    "explanation": "Creates an array of all product names for each user."
-  },
-  {
-    "question": "What is the command to: Creates an array of unique product names for each user.",
-    "options": [
-      "db.users.find({$expr: {$gt: [$qty, $reorderPoint]}})",
-      "{$group: {_id: $user, uniqueItems: {$addToSet: $productName}}}",
-      "db.posts.deleteMany({author: A})",
-      "{$group: {_id: $user, items: {$push: $productName}}}"
-    ],
-    "correctAnswer": "{$group: {_id: $user, uniqueItems: {$addToSet: $productName}}}",
-    "explanation": "Creates an array of unique product names for each user."
-  },
-  {
-    "question": "What is the command to: Selects, reshapes, or renames fields; can calculate new fields.",
-    "options": [
-      "db.users.updateOne({_id: 1}, {$pull: {tags: old}})",
-      "db.logs.find({createdAt: {$gte: ISODate(...) , $lt: ISODate(...)}})",
-      "{$project: {title: 1, author: 1, year: {$year: $publishDate}}}",
-      "{$unwind: $tags}"
-    ],
-    "correctAnswer": "{$project: {title: 1, author: 1, year: {$year: $publishDate}}}",
-    "explanation": "Selects, reshapes, or renames fields; can calculate new fields."
-  },
-  {
-    "question": "What is the command to: Excludes content and _id from the output.",
-    "options": [
-      "db.logs.find({createdAt: {$gte: ISODate(...) , $lt: ISODate(...)}})",
-      "db.products.find({size: {$nin: [S, M]}})",
-      "{$project: {content: 0, _id: 0}}",
-      "db.users.updateOne({_id: 1}, {$pull: {tags: old}})"
-    ],
-    "correctAnswer": "{$project: {content: 0, _id: 0}}",
-    "explanation": "Excludes content and _id from the output."
-  },
-  {
-    "question": "What is the command to: Sorts documents: total descending (-1), then name ascending (1).",
-    "options": [
-      "{$sort: {total: -1, name: 1}}",
-      "db.logs.find({createdAt: {$lte: ISODate(2025-10-31T23:59:59Z)}",
-      "db.users.createIndex({email: 1}, {unique: true})",
-      "session.abortTransaction()"
-    ],
-    "correctAnswer": "{$sort: {total: -1, name: 1}}",
-    "explanation": "Sorts documents: total descending (-1), then name ascending (1)."
-  },
-  {
-    "question": "What is the command to: Restricts the number of documents passed to the next stage (Top 10).",
-    "options": [
-      "{$project: {highScores: {$filter:",
-      "{$limit: 10}",
-      "Referencing is required (e.g., a category to 1000s of products).",
-      "{$max: $price}"
-    ],
-    "correctAnswer": "{$limit: 10}",
-    "explanation": "Restricts the number of documents passed to the next stage (Top 10)."
-  },
-  {
-    "question": "What is the command to: Skips the first 5 documents (for pagination).",
-    "options": [
-      "db.users.find({_id: {$type: 7}})",
-      "{$skip: 5}",
-      "{$group: {_id: {$dayOfWeek: $dateField}, count: {$sum: 1}}}",
-      "db.users.replaceOne({_id: 1}, {username: newuser, lastLogin: new Date()})"
-    ],
-    "correctAnswer": "{$skip: 5}",
-    "explanation": "Skips the first 5 documents (for pagination)."
-  },
-  {
-    "question": "What is the command to: Deconstructs the tags array, creating a new document for each element.",
-    "options": [
-      "{$unwind: $tags}",
-      "{$facet: {categoryBreakdown: [...], priceRange: [...]}}",
-      "db.users.dropIndex(email_1)",
-      "db.stores.find({invent: {$elemMatch: {name: itemA, qty: {$gte: 5}}})"
-    ],
-    "correctAnswer": "{$unwind: $tags}",
-    "explanation": "Deconstructs the tags array, creating a new document for each element."
-  },
-  {
-    "question": "What is the command to: Deconstructs and adds an itemIndex field showing the original array index.",
-    "options": [
-      "db.products.find({size: {$in: [S, M]}})",
-      "{$unwind: {path: $items, includeArrayIndex: itemIndex}}",
-      "db.users.updateOne({name: A}, {$rename: {age: yearsOld}})",
+      "db.products.find({name: 'laptop'})",
+      "db.products.find({name: {$like: '%laptop%'}})",
       "db.products.find({name: /laptop/i})"
     ],
-    "correctAnswer": "{$unwind: {path: $items, includeArrayIndex: itemIndex}}",
-    "explanation": "Deconstructs and adds an itemIndex field showing the original array index."
+    "correctAnswer": "db.products.find({name: /laptop/})",
+    "explanation": "Standard JavaScript regex /pattern/ can be used for 'contains' searches."
   },
   {
-    "question": "What is the command to: Outputs a single document with a field (numberOfDocuments) containing the count.",
+    "question": "What is the command to: Find documents where name contains 'laptop' (case-insensitive regex).",
     "options": [
       "db.products.find({name: /laptop/i})",
-      "{$count: numberOfDocuments}",
-      "db.posts.insertOne({title: Intro, author: A})",
-      "{$sum: 1}"
+      "db.products.find({name: /laptop/c})",
+      "db.products.find({name: {$regex: 'laptop', $case: false}})",
+      "db.products.find({name: /laptop/})"
     ],
-    "correctAnswer": "{$count: numberOfDocuments}",
-    "explanation": "Outputs a single document with a field (numberOfDocuments) containing the count."
+    "correctAnswer": "db.products.find({name: /laptop/i})",
+    "explanation": "The 'i' flag in the regex `/pattern/i` enables case-insensitivity."
   },
   {
-    "question": "What is the command to: Adds new fields to documents (similar to $project but keeps existing fields).",
+    "question": "What is the command to: Find documents where name starts with 'MacBook'.",
     "options": [
-      "{$addFields: {fullName: {$concat: [$firstName,  , $lastName]}}}",
-      "db.logs.find({createdAt: {$lte: ISODate(2025-10-31T23:59:59Z)}",
-      "db.posts.deleteOne({status: Draft})",
-      "db.users.updateOne({_id: 1}, {$pop: {scores: -1}})"
+      "db.products.find({name: /^MacBook/})",
+      "db.products.find({name: /MacBook$/})",
+      "db.products.find({name: {$start: 'MacBook'}})",
+      "db.products.find({name: 'MacBook%'})"
     ],
-    "correctAnswer": "{$addFields: {fullName: {$concat: [$firstName,  , $lastName]}}}",
-    "explanation": "Adds new fields to documents (similar to $project but keeps existing fields)."
+    "correctAnswer": "db.products.find({name: /^MacBook/})",
+    "explanation": "The carat symbol '^' in regex anchors the match to the start of the string."
   },
   {
-    "question": "What is the command to: Writes the documents from the pipeline to a new collection.",
+    "question": "What is the command to: Find documents where name ends with 'Pro'.",
     "options": [
-      "db.users.updateOne({grades.score: 80},",
-      "{$out: newCollectionName}",
-      "db.users.updateOne({name: A}, {$unset: {age: }})",
-      "db.products.find({name: /Pro$/})"
+      "db.products.find({name: /Pro$/})",
+      "db.products.find({name: /^Pro/})",
+      "db.products.find({name: {$end: 'Pro'}})",
+      "db.products.find({name: '%Pro'})"
     ],
-    "correctAnswer": "{$out: newCollectionName}",
-    "explanation": "Writes the documents from the pipeline to a new collection."
+    "correctAnswer": "db.products.find({name: /Pro$/})",
+    "explanation": "The dollar sign '$' in regex anchors the match to the end of the string."
   },
   {
-    "question": "What is the command to: Processes documents using multiple independent",
+    "question": "What is the command to: Find using the explicit $regex operator with options.",
+    "options": [
+      "db.products.find({name: {$regex: 'laptop', $options: 'i'}})",
+      "db.products.find({name: {$regex: 'laptop', $flags: 'i'}})",
+      "db.products.find({name: {$match: 'laptop', $case: 'i'}})",
+      "db.products.find({name: {$pattern: 'laptop'}})"
+    ],
+    "correctAnswer": "db.products.find({name: {$regex: 'laptop', $options: 'i'}})",
+    "explanation": "Use $regex and $options when you need to construct the regex dynamically or prefer object syntax."
+  },
+  {
+    "question": "What is the command to: Set a field's value to 30; create the field if it doesn't exist.",
+    "options": [
+      "db.users.updateOne({name: 'A'}, {$set: {age: 30}})",
+      "db.users.updateOne({name: 'A'}, {$update: {age: 30}})",
+      "db.users.updateOne({name: 'A'}, {$put: {age: 30}})",
+      "db.users.updateOne({name: 'A'}, {age: 30})"
+    ],
+    "correctAnswer": "db.users.updateOne({name: 'A'}, {$set: {age: 30}})",
+    "explanation": "$set assigns a value. If the field does not exist, it is added."
+  },
+  {
+    "question": "What is the command to: Remove the 'age' field from a document.",
+    "options": [
+      "db.users.updateOne({name: 'A'}, {$unset: {age: ''}})",
+      "db.users.updateOne({name: 'A'}, {$delete: {age: 1}})",
+      "db.users.updateOne({name: 'A'}, {$remove: {age: true}})",
+      "db.users.updateOne({name: 'A'}, {$set: {age: null}})"
+    ],
+    "correctAnswer": "db.users.updateOne({name: 'A'}, {$unset: {age: ''}})",
+    "explanation": "$unset deletes a particular field. The value passed (e.g., '') is arbitrary but required syntax."
+  },
+  {
+    "question": "What is the command to: Rename a field from 'age' to 'yearsOld'.",
+    "options": [
+      "db.users.updateOne({name: 'A'}, {$rename: {age: 'yearsOld'}})",
+      "db.users.updateOne({name: 'A'}, {$name: {age: 'yearsOld'}})",
+      "db.users.updateOne({name: 'A'}, {$move: {age: 'yearsOld'}})",
+      "db.users.updateOne({name: 'A'}, {$set: {yearsOld: '$age'}})"
+    ],
+    "correctAnswer": "db.users.updateOne({name: 'A'}, {$rename: {age: 'yearsOld'}})",
+    "explanation": "$rename updates the name of a field. The value is the new name."
+  },
+  {
+    "question": "What is the command to: Increment the 'qty' field by 2.",
+    "options": [
+      "db.products.updateOne({_id: 1}, {$inc: {qty: 2}})",
+      "db.products.updateOne({_id: 1}, {$add: {qty: 2}})",
+      "db.products.updateOne({_id: 1}, {$sum: {qty: 2}})",
+      "db.products.updateOne({_id: 1}, {$set: {qty: '+2'}})"
+    ],
+    "correctAnswer": "db.products.updateOne({_id: 1}, {$inc: {qty: 2}})",
+    "explanation": "$inc increases a numeric field by the specified amount."
+  },
+  {
+    "question": "What is the command to: Multiply the 'price' field by 0.8.",
+    "options": [
+      "db.products.updateOne({_id: 1}, {$mul: {price: 0.8}})",
+      "db.products.updateOne({_id: 1}, {$multiply: {price: 0.8}})",
+      "db.products.updateOne({_id: 1}, {$times: {price: 0.8}})",
+      "db.products.updateOne({_id: 1}, {$set: {price: '*0.8'}})"
+    ],
+    "correctAnswer": "db.products.updateOne({_id: 1}, {$mul: {price: 0.8}})",
+    "explanation": "$mul multiplies a numeric field by the specified value."
+  },
+  {
+    "question": "What is the command to: Update 'lowPrice' to 50 ONLY IF 50 is less than the current value.",
+    "options": [
+      "db.products.updateOne({_id: 1}, {$min: {lowPrice: 50}})",
+      "db.products.updateOne({_id: 1}, {$less: {lowPrice: 50}})",
+      "db.products.updateOne({_id: 1}, {$set: {lowPrice: 50}})",
+      "db.products.updateOne({_id: 1}, {$lowest: {lowPrice: 50}})"
+    ],
+    "correctAnswer": "db.products.updateOne({_id: 1}, {$min: {lowPrice: 50}})",
+    "explanation": "$min updates the field only if the specified value is less than the existing field value."
+  },
+  {
+    "question": "What is the command to: Update 'highPrice' to 150 ONLY IF 150 is greater than the current value.",
+    "options": [
+      "db.products.updateOne({_id: 1}, {$max: {highPrice: 150}})",
+      "db.products.updateOne({_id: 1}, {$more: {highPrice: 150}})",
+      "db.products.updateOne({_id: 1}, {$greatest: {highPrice: 150}})",
+      "db.products.updateOne({_id: 1}, {$set: {highPrice: 150}})"
+    ],
+    "correctAnswer": "db.products.updateOne({_id: 1}, {$max: {highPrice: 150}})",
+    "explanation": "$max updates the field only if the specified value is greater than the existing field value."
+  },
+  {
+    "question": "What is the command to: Set 'lastModified' to the current datetime.",
+    "options": [
+      "db.logs.updateOne({_id: 1}, {$currentDate: {lastModified: true}})",
+      "db.logs.updateOne({_id: 1}, {$set: {lastModified: 'now'}})",
+      "db.logs.updateOne({_id: 1}, {$date: {lastModified: true}})",
+      "db.logs.updateOne({_id: 1}, {$timestamp: {lastModified: true}})"
+    ],
+    "correctAnswer": "db.logs.updateOne({_id: 1}, {$currentDate: {lastModified: true}})",
+    "explanation": "$currentDate sets a field to the current date (Date or Timestamp)."
+  },
+  {
+    "question": "What is the command to: Remove the LAST element from the 'scores' array.",
+    "options": [
+      "db.users.updateOne({_id: 1}, {$pop: {scores: 1}})",
+      "db.users.updateOne({_id: 1}, {$pop: {scores: -1}})",
+      "db.users.updateOne({_id: 1}, {$remove: {scores: 'last'}})",
+      "db.users.updateOne({_id: 1}, {$slice: {scores: -1}})"
+    ],
+    "correctAnswer": "db.users.updateOne({_id: 1}, {$pop: {scores: 1}})",
+    "explanation": "$pop with 1 removes the last element; $pop with -1 removes the first."
+  },
+  {
+    "question": "What is the command to: Remove the FIRST element from the 'scores' array.",
+    "options": [
+      "db.users.updateOne({_id: 1}, {$pop: {scores: -1}})",
+      "db.users.updateOne({_id: 1}, {$pop: {scores: 1}})",
+      "db.users.updateOne({_id: 1}, {$remove: {scores: 'first'}})",
+      "db.users.updateOne({_id: 1}, {$shift: {scores: 1}})"
+    ],
+    "correctAnswer": "db.users.updateOne({_id: 1}, {$pop: {scores: -1}})",
+    "explanation": "$pop with -1 removes the first element (conceptually shifting)."
+  },
+  {
+    "question": "What is the command to: Append the value 'new' to the 'tags' array.",
+    "options": [
+      "db.users.updateOne({_id: 1}, {$push: {tags: 'new'}})",
+      "db.users.updateOne({_id: 1}, {$add: {tags: 'new'}})",
+      "db.users.updateOne({_id: 1}, {$append: {tags: 'new'}})",
+      "db.users.updateOne({_id: 1}, {$insert: {tags: 'new'}})"
+    ],
+    "correctAnswer": "db.users.updateOne({_id: 1}, {$push: {tags: 'new'}})",
+    "explanation": "$push adds an element to the end of an array."
+  },
+  {
+    "question": "What is the command to: Append multiple values ('A' and 'B') to the 'tags' array.",
+    "options": [
+      "db.users.updateOne({_id: 1}, {$push: {tags: {$each: ['A', 'B']}}})",
+      "db.users.updateOne({_id: 1}, {$push: {tags: ['A', 'B']}})",
+      "db.users.updateOne({_id: 1}, {$pushAll: {tags: ['A', 'B']}})",
+      "db.users.updateOne({_id: 1}, {$append: {tags: ['A', 'B']}})"
+    ],
+    "correctAnswer": "db.users.updateOne({_id: 1}, {$push: {tags: {$each: ['A', 'B']}}})",
+    "explanation": "To push multiple items, you must use the $each modifier inside $push."
+  },
+  {
+    "question": "What is the command to: Append items to 'log' array, but keep only the last 5 elements.",
+    "options": [
+      "db.users.updateOne({_id: 1}, {$push: {log: {$each: [1, 2], $slice: -5}}})",
+      "db.users.updateOne({_id: 1}, {$push: {log: [1, 2]}, $limit: 5})",
+      "db.users.updateOne({_id: 1}, {$push: {log: [1, 2]}, $slice: 5})",
+      "db.users.updateOne({_id: 1}, {$slice: {log: 5}})"
+    ],
+    "correctAnswer": "db.users.updateOne({_id: 1}, {$push: {log: {$each: [1, 2, 3], $slice: -5}}})",
+    "explanation": "$slice used with $push keeps the array size fixed. Negative slice keeps the last N elements."
+  },
+  {
+    "question": "What is the command to: Add 'A' to the 'uniqueTags' array only if it doesn't already exist.",
+    "options": [
+      "db.users.updateOne({_id: 1}, {$addToSet: {uniqueTags: 'A'}})",
+      "db.users.updateOne({_id: 1}, {$push: {uniqueTags: 'A', $unique: true}})",
+      "db.users.updateOne({_id: 1}, {$pushUnique: {uniqueTags: 'A'}})",
+      "db.users.updateOne({_id: 1}, {$add: {uniqueTags: 'A'}})"
+    ],
+    "correctAnswer": "db.users.updateOne({_id: 1}, {$addToSet: {uniqueTags: 'A'}})",
+    "explanation": "$addToSet adds a value to an array only if that value is not already present."
+  },
+  {
+    "question": "What is the command to: Add multiple unique values to the array.",
+    "options": [
+      "db.users.updateOne({_id: 1}, {$addToSet: {uniqueTags: {$each: ['A', 'B']}}})",
+      "db.users.updateOne({_id: 1}, {$addToSet: {uniqueTags: ['A', 'B']}})",
+      "db.users.updateOne({_id: 1}, {$push: {uniqueTags: {$each: ['A', 'B'], $unique: true}}})",
+      "db.users.updateOne({_id: 1}, {$addAll: {uniqueTags: ['A', 'B']}})"
+    ],
+    "correctAnswer": "db.users.updateOne({_id: 1}, {$addToSet: {uniqueTags: {$each: ['A', 'B']}}})",
+    "explanation": "Like $push, $addToSet uses $each to accept multiple values."
+  },
+  {
+    "question": "What is the command to: Remove all occurrences of the specific value 'old' from the 'tags' array.",
+    "options": [
+      "db.users.updateOne({_id: 1}, {$pull: {tags: 'old'}})",
+      "db.users.updateOne({_id: 1}, {$remove: {tags: 'old'}})",
+      "db.users.updateOne({_id: 1}, {$delete: {tags: 'old'}})",
+      "db.users.updateOne({_id: 1}, {$pop: {tags: 'old'}})"
+    ],
+    "correctAnswer": "db.users.updateOne({_id: 1}, {$pull: {tags: 'old'}})",
+    "explanation": "$pull removes all instances of a value or matching condition from an array."
+  },
+  {
+    "question": "What is the command to: Remove all instances of all specified values ('old1', 'old2') from the array.",
+    "options": [
+      "db.users.updateOne({_id: 1}, {$pullAll: {tags: ['old1', 'old2']}})",
+      "db.users.updateOne({_id: 1}, {$pull: {tags: ['old1', 'old2']}})",
+      "db.users.updateOne({_id: 1}, {$removeAll: {tags: ['old1', 'old2']}})",
+      "db.users.updateOne({_id: 1}, {$deleteMany: {tags: ['old1', 'old2']}})"
+    ],
+    "correctAnswer": "db.users.updateOne({_id: 1}, {$pullAll: {tags: ['old1', 'old2']}})",
+    "explanation": "$pullAll removes all values listed in the provided array. Unlike $pull with $in, it only matches exact values."
+  },
+  {
+    "question": "What is the command to: Increment the 'score' field for ALL elements in the 'grades' array of all documents.",
+    "options": [
+      "db.users.updateMany({}, {$inc: {'grades.$[].score': 5}})",
+      "db.users.updateMany({}, {$inc: {'grades.score': 5}})",
+      "db.users.updateMany({}, {$inc: {'grades.$.score': 5}})",
+      "db.users.updateMany({}, {$inc: {'grades[*].score': 5}})"
+    ],
+    "correctAnswer": "db.users.updateMany({}, {$inc: {'grades.$[].score': 5}})",
+    "explanation": "The '$[]' positional operator acts as a placeholder for ALL elements in the array."
+  },
+  {
+    "question": "What is the command to: Replace the entire document (except _id) with a new document.",
+    "options": [
+      "db.users.replaceOne({_id: 1}, {username: 'newuser', lastLogin: new Date()})",
+      "db.users.updateOne({_id: 1}, {username: 'newuser', lastLogin: new Date()})",
+      "db.users.setOne({_id: 1}, {username: 'newuser', lastLogin: new Date()})",
+      "db.users.overwrite({_id: 1}, {username: 'newuser', lastLogin: new Date()})"
+    ],
+    "correctAnswer": "db.users.replaceOne({_id: 1}, {username: 'newuser', lastLogin: new Date()})",
+    "explanation": "'replaceOne' substitutes the whole document. 'updateOne' requires update operators like $set."
+  },
+  {
+    "question": "What is the command to: Find documents created on or after Oct 1, 2025.",
+    "options": [
+      "db.logs.find({createdAt: {$gte: ISODate('2025-10-01T00:00:00Z')}})",
+      "db.logs.find({createdAt: {$gt: '2025-10-01'}})",
+      "db.logs.find({createdAt: {$after: '2025-10-01'}})",
+      "db.logs.find({createdAt: '2025-10-01'})"
+    ],
+    "correctAnswer": "db.logs.find({createdAt: {$gte: ISODate('2025-10-01T00:00:00Z')}})",
+    "explanation": "Dates in MongoDB are objects. Use ISODate() helper and standard comparison operators."
+  },
+  {
+    "question": "What is the command to: Find documents created on or before Oct 31, 2025.",
+    "options": [
+      "db.logs.find({createdAt: {$lte: ISODate('2025-10-31T23:59:59Z')}})",
+      "db.logs.find({createdAt: {$before: '2025-10-31'}})",
+      "db.logs.find({createdAt: {$lt: '2025-10-31'}})",
+      "db.logs.find({createdAt: {$until: '2025-10-31'}})"
+    ],
+    "correctAnswer": "db.logs.find({createdAt: {$lte: ISODate('2025-10-31T23:59:59Z')}})",
+    "explanation": "$lte compares Date objects chronologically."
+  },
+  {
+    "question": "What is the command to: Find documents within a specific date range (start to end).",
+    "options": [
+      "db.logs.find({createdAt: {$gte: ISODate('...'), $lt: ISODate('...')}})",
+      "db.logs.find({createdAt: {$range: [ISODate('...'), ISODate('...')]}})",
+      "db.logs.find({createdAt: {$between: [ISODate('...'), ISODate('...')]}})",
+      "db.logs.find({createdAt: {from: '...', to: '...'}})"
+    ],
+    "correctAnswer": "db.logs.find({createdAt: {$gte: ISODate('...'), $lt: ISODate('...')}})",
+    "explanation": "Combine $gte (start) and $lt (end) in the same field object for a range query."
+  },
+  {
+    "question": "What is the Aggregation Stage to: Extract the year from '$dateField' for grouping.",
+    "options": [
+      "{$group: {_id: {$year: '$dateField'}, count: {$sum: 1}}}",
+      "{$group: {_id: {$getYear: '$dateField'}, count: {$sum: 1}}}",
+      "{$group: {_id: {$dateYear: '$dateField'}, count: {$sum: 1}}}",
+      "{$project: {year: '$dateField'}}"
+    ],
+    "correctAnswer": "{$group: {_id: {$year: '$dateField'}, count: {$sum: 1}}}",
+    "explanation": "$year is a date expression operator used within aggregation stages to extract the year."
+  },
+  {
+    "question": "What is the Aggregation Stage to: Extract the month from '$dateField' for grouping.",
+    "options": [
+      "{$group: {_id: {$month: '$dateField'}, count: {$sum: 1}}}",
+      "{$group: {_id: {$getMonth: '$dateField'}, count: {$sum: 1}}}",
+      "{$group: {_id: {$dateMonth: '$dateField'}, count: {$sum: 1}}}",
+      "{$project: {month: '$dateField'}}"
+    ],
+    "correctAnswer": "{$group: {_id: {$month: '$dateField'}, count: {$sum: 1}}}",
+    "explanation": "$month returns the month as a number (1-12)."
+  },
+  {
+    "question": "What is the Aggregation Stage to: Extract the day of the week (1=Sunday).",
+    "options": [
+      "{$group: {_id: {$dayOfWeek: '$dateField'}, count: {$sum: 1}}}",
+      "{$group: {_id: {$weekDay: '$dateField'}, count: {$sum: 1}}}",
+      "{$group: {_id: {$day: '$dateField'}, count: {$sum: 1}}}",
+      "{$group: {_id: {$isoDay: '$dateField'}, count: {$sum: 1}}}"
+    ],
+    "correctAnswer": "{$group: {_id: {$dayOfWeek: '$dateField'}, count: {$sum: 1}}}",
+    "explanation": "$dayOfWeek returns the number representing the day of the week."
+  },
+  {
+    "question": "Which data modeling concept is described by: Storing 10-15 comments directly in the post document.",
+    "options": [
+      "Embedding",
+      "Referencing",
+      "Normalization",
+      "Linking"
+    ],
+    "correctAnswer": "Embedding",
+    "explanation": "Embedding involves storing related data (like comments) within the single parent document (the post)."
+  },
+  {
+    "question": "When is 'Embedding' generally preferred over 'Referencing'?",
+    "options": [
+      "When related data is accessed together (1-to-Few) and doesn't grow unbounded.",
+      "When related data is huge and rarely accessed.",
+      "When you need to avoid data duplication at all costs.",
+      "When the relationship is Many-to-Many with large datasets."
+    ],
+    "correctAnswer": "When related data is accessed together (1-to-Few) and doesn't grow unbounded.",
+    "explanation": "Embedding provides better read performance for data that belongs together (data locality)."
+  },
+  {
+    "question": "What is the primary benefit of Embedding?",
+    "options": [
+      "Better read performance (one query retrieves all data).",
+      "Smaller document size.",
+      "Easier to update many records at once.",
+      "Normalized data structure."
+    ],
+    "correctAnswer": "Better read performance (one query retrieves all data).",
+    "explanation": "It eliminates the need for joins or multiple queries."
+  },
+  {
+    "question": "When is 'Referencing' generally preferred over 'Embedding'?",
+    "options": [
+      "When related data is large, grows unbounded, or is Many-to-Many.",
+      "When the relationship is 1-to-1.",
+      "When you want faster read speeds for the joined data.",
+      "When data is static and never changes."
+    ],
+    "correctAnswer": "When related data is large, grows unbounded, or is Many-to-Many.",
+    "explanation": "Referencing prevents documents from exceeding the 16MB limit and avoids duplication in Many-to-Many scenarios."
+  },
+  {
+    "question": "What is the primary benefit of Referencing (Normalization)?",
+    "options": [
+      "Flexibility and avoidance of data duplication.",
+      "Faster read queries.",
+      "Atomic updates on the combined data.",
+      "Simpler queries."
+    ],
+    "correctAnswer": "Flexibility and avoidance of data duplication.",
+    "explanation": "Referencing keeps entities separate, meaning an update to a user profile is reflected everywhere that user is referenced."
+  },
+  {
+    "question": "Which concept matches: A category document containing the IDs of 1000s of products.",
+    "options": [
+      "Referencing (specifically 1-to-Many).",
+      "Embedding.",
+      "Denormalization.",
+      "Sharding."
+    ],
+    "correctAnswer": "Referencing (specifically 1-to-Many).",
+    "explanation": "Because the 'Many' side (1000s) is large, we store references (IDs) rather than embedding the full product data."
+  },
+  {
+    "question": "Which concept matches: A student document containing a list of CourseIDs, and Course documents containing StudentIDs.",
+    "options": [
+      "Many-to-Many Referencing.",
+      "1-to-1 Embedding.",
+      "One-Way Embedding.",
+      "Capped Collections."
+    ],
+    "correctAnswer": "Many-to-Many Referencing.",
+    "explanation": "This bidirectional referencing allows efficient navigation between students and their courses."
+  },
+  {
+    "question": "What is the Aggregation Stage to: Filter documents (similar to find).",
+    "options": [
+      "{$match: {status: 'Active'}}",
+      "{$filter: {status: 'Active'}}",
+      "{$where: {status: 'Active'}}",
+      "{$find: {status: 'Active'}}"
+    ],
+    "correctAnswer": "{$match: {status: 'Active'}}",
+    "explanation": "$match filters the document stream to allow only matching documents to pass to the next stage."
+  },
+  {
+    "question": "What is the Aggregation Stage to: Group documents by '$category' and sum the prices.",
+    "options": [
+      "{$group: {_id: '$category', totalSales: {$sum: '$price'}}}",
+      "{$group: {by: '$category', totalSales: {$sum: '$price'}}}",
+      "{$sum: {group: '$category', field: '$price'}}",
+      "{$bucket: {_id: '$category', totalSales: {$add: '$price'}}}"
+    ],
+    "correctAnswer": "{$group: {_id: '$category', totalSales: {$sum: '$price'}}}",
+    "explanation": "$group requires an _id field to define the group key, and accumulators like $sum."
+  },
+  {
+    "question": "What is the Aggregation Operator to: Count the number of documents in a group.",
     "options": [
       "{$sum: 1}",
-      "{$addFields: {fullName: {$concat: [$firstName,  , $lastName]}}}",
-      "{$facet: {categoryBreakdown: [...], priceRange: [...]}}",
-      "Embedding involves storing related data within a single document."
+      "{$count: 1}",
+      "{$total: 1}",
+      "{$add: 1}"
     ],
-    "correctAnswer": "{$facet: {categoryBreakdown: [...], priceRange: [...]}}",
-    "explanation": "Processes documents using multiple independent"
+    "correctAnswer": "{$sum: 1}",
+    "explanation": "Summing the value 1 for every document effectively counts them."
   },
   {
-    "question": "What is the command to: Converts a BSON Date to a formatted string.",
+    "question": "What is the Aggregation Operator to: Calculate the average of '$score'.",
     "options": [
-      "{$project: {dateString: {$dateToString: {format: %Y-%m-%d, date: $dateField}}}}",
-      "db.users.createIndex({lastName: 1, firstName: 1})",
-      "db.logs.updateOne({_id: 1},",
-      "db.users.updateOne({name: A}, {$set: {age: 30}})"
+      "{$avg: '$score'}",
+      "{$mean: '$score'}",
+      "{$average: '$score'}",
+      "{$sum: '$score'}"
     ],
-    "correctAnswer": "{$project: {dateString: {$dateToString: {format: %Y-%m-%d, date: $dateField}}}}",
-    "explanation": "Converts a BSON Date to a formatted string."
+    "correctAnswer": "{$avg: '$score'}",
+    "explanation": "$avg returns the mathematical average of the numeric values."
   },
   {
-    "question": "What is the command to: Checks if one array is a subset of another (returns boolean).",
+    "question": "What is the Aggregation Operator to: Find the minimum value of '$price'.",
     "options": [
-      "{$project: {isSubset: {$setIsSubset: [$requiredTags, $userTags]}}}",
-      "{$project: {highScores: {$filter:",
-      "db.items.find({price: {$eq: 10}})",
-      "db.items.find({qty: {$gte: 50}})"
+      "{$min: '$price'}",
+      "{$low: '$price'}",
+      "{$bottom: '$price'}",
+      "{$least: '$price'}"
     ],
-    "correctAnswer": "{$project: {isSubset: {$setIsSubset: [$requiredTags, $userTags]}}}",
-    "explanation": "Checks if one array is a subset of another (returns boolean)."
+    "correctAnswer": "{$min: '$price'}",
+    "explanation": "$min returns the lowest value in the group."
   },
   {
-    "question": "What is the command to: Performs a ternary operation (if/then/else) to set a field value.",
+    "question": "What is the Aggregation Operator to: Find the maximum value of '$price'.",
     "options": [
-      "db.users.replaceOne({_id: 1}, {username: newuser, lastLogin: new Date()})",
+      "{$max: '$price'}",
+      "{$high: '$price'}",
+      "{$top: '$price'}",
+      "{$greatest: '$price'}"
+    ],
+    "correctAnswer": "{$max: '$price'}",
+    "explanation": "$max returns the highest value in the group."
+  },
+  {
+    "question": "What is the Aggregation Stage to: Create an array of ALL product names for each user group.",
+    "options": [
+      "{$group: {_id: '$user', items: {$push: '$productName'}}}",
+      "{$group: {_id: '$user', items: {$addToSet: '$productName'}}}",
+      "{$group: {_id: '$user', items: {$array: '$productName'}}}",
+      "{$group: {_id: '$user', items: {$append: '$productName'}}}"
+    ],
+    "correctAnswer": "{$group: {_id: '$user', items: {$push: '$productName'}}}",
+    "explanation": "$push adds every value to the array, including duplicates."
+  },
+  {
+    "question": "What is the Aggregation Stage to: Create an array of UNIQUE product names for each user group.",
+    "options": [
+      "{$group: {_id: '$user', uniqueItems: {$addToSet: '$productName'}}}",
+      "{$group: {_id: '$user', uniqueItems: {$push: '$productName'}}}",
+      "{$group: {_id: '$user', uniqueItems: {$unique: '$productName'}}}",
+      "{$group: {_id: '$user', uniqueItems: {$set: '$productName'}}}"
+    ],
+    "correctAnswer": "{$group: {_id: '$user', uniqueItems: {$addToSet: '$productName'}}}",
+    "explanation": "$addToSet ensures the resulting array contains unique values only."
+  },
+  {
+    "question": "What is the Aggregation Stage to: Reshape documents (select/rename fields or calculate new ones).",
+    "options": [
+      "{$project: {title: 1, author: 1, year: {$year: '$publishDate'}}}",
+      "{$reshape: {title: 1, author: 1}}",
+      "{$select: {title: 1, author: 1}}",
+      "{$modify: {title: 1, author: 1}}"
+    ],
+    "correctAnswer": "{$project: {title: 1, author: 1, year: {$year: '$publishDate'}}}",
+    "explanation": "$project passes along the documents with the requested fields to the next stage."
+  },
+  {
+    "question": "What is the Aggregation Stage to: Exclude '_id' and 'content' from the output.",
+    "options": [
       "{$project: {content: 0, _id: 0}}",
-      "db.stores.find({invent: {$elemMatch: {name: itemA, qty: {$gte: 5}}})",
-      "{$project: {status: {$cond: {if: {$gt: [$qty, 100]}, then: High, else: Low}}}}"
+      "{$project: {content: false, _id: false}}",
+      "{$exclude: ['content', '_id']}",
+      "{$hide: {content: 1, _id: 1}}"
     ],
-    "correctAnswer": "{$project: {status: {$cond: {if: {$gt: [$qty, 100]}, then: High, else: Low}}}}",
-    "explanation": "Performs a ternary operation (if/then/else) to set a field value."
+    "correctAnswer": "{$project: {content: 0, _id: 0}}",
+    "explanation": "Setting a field to 0 in $project explicitly excludes it."
   },
   {
-    "question": "What is the command to: Finds documents where the price field's BSON type is string.",
+    "question": "What is the Aggregation Stage to: Sort by total (desc) then name (asc).",
     "options": [
-      "db.posts.findOne({author: A})",
-      "{$match: {price: {$type: string}}}",
-      "db.products.find({name: /laptop/})",
-      "{$match: {status: Active, amount: {$gte: 100}}}"
+      "{$sort: {total: -1, name: 1}}",
+      "{$sort: {total: 'desc', name: 'asc'}}",
+      "{$order: {total: -1, name: 1}}",
+      "{$arrange: {total: -1, name: 1}}"
     ],
-    "correctAnswer": "{$match: {price: {$type: string}}}",
-    "explanation": "Finds documents where the price field's BSON type is string."
+    "correctAnswer": "{$sort: {total: -1, name: 1}}",
+    "explanation": "$sort uses 1 for ascending and -1 for descending."
   },
   {
-    "question": "What is the command to: Performs a text search (requires a text index on the field).",
+    "question": "What is the Aggregation Stage to: Restrict the pipeline to the first 10 documents.",
     "options": [
-      "db.posts.deleteMany({})",
-      "db.posts.insertOne({title: Intro, author: A})",
-      "{$match: {$text: {$search: quick brown fox}}}",
-      "{$sum: 1}"
+      "{$limit: 10}",
+      "{$take: 10}",
+      "{$top: 10}",
+      "{$restrict: 10}"
     ],
-    "correctAnswer": "{$match: {$text: {$search: quick brown fox}}}",
-    "explanation": "Performs a text search (requires a text index on the field)."
+    "correctAnswer": "{$limit: 10}",
+    "explanation": "$limit passes only the first N documents to the next stage."
   },
   {
-    "question": "What is the command to: Finds documents where the email field exists.",
+    "question": "What is the Aggregation Stage to: Skip the first 5 documents.",
     "options": [
-      "{$group: {_id: $category, totalSales: {$sum: $price}}}",
-      "db.products.find({tags: {$all: [sale, red]}})",
-      "Embedding is ideal (e.g., a book and its 5-10 reviews).",
-      "db.users.find({email: {$exists: true}})"
+      "{$skip: 5}",
+      "{$offset: 5}",
+      "{$ignore: 5}",
+      "{$pass: 5}"
+    ],
+    "correctAnswer": "{$skip: 5}",
+    "explanation": "$skip ignores the first N documents and passes the rest."
+  },
+  {
+    "question": "What is the Aggregation Stage to: Deconstruct an array field ('tags') into separate documents.",
+    "options": [
+      "{$unwind: '$tags'}",
+      "{$flatten: '$tags'}",
+      "{$split: '$tags'}",
+      "{$expand: '$tags'}"
+    ],
+    "correctAnswer": "{$unwind: '$tags'}",
+    "explanation": "$unwind creates a new document for every element in the array."
+  },
+  {
+    "question": "What is the Aggregation Stage to: Unwind 'items' and include the array index in a field named 'itemIndex'.",
+    "options": [
+      "{$unwind: {path: '$items', includeArrayIndex: 'itemIndex'}}",
+      "{$unwind: {path: '$items', index: 'itemIndex'}}",
+      "{$unwind: '$items', index: 'itemIndex'}",
+      "{$expand: {field: '$items', count: 'itemIndex'}}"
+    ],
+    "correctAnswer": "{$unwind: {path: '$items', includeArrayIndex: 'itemIndex'}}",
+    "explanation": "The object syntax for $unwind allows options like includeArrayIndex."
+  },
+  {
+    "question": "What is the Aggregation Stage to: Count all input documents and output a single document with the count.",
+    "options": [
+      "{$count: 'numberOfDocuments'}",
+      "{$sum: 1}",
+      "{$total: 'numberOfDocuments'}",
+      "{$group: {_id: null, count: {$sum: 1}}}"
+    ],
+    "correctAnswer": "{$count: 'numberOfDocuments'}",
+    "explanation": "$count is a shorthand stage for counting documents passing through the pipeline."
+  },
+  {
+    "question": "What is the Aggregation Stage to: Add new fields (e.g., fullName) while keeping existing fields.",
+    "options": [
+      "{$addFields: {fullName: {$concat: ['$first', ' ', '$last']}}}",
+      "{$project: {fullName: {$concat: ['$first', ' ', '$last']}}}",
+      "{$set: {fullName: {$concat: ['$first', ' ', '$last']}}}",
+      "{$append: {fullName: {$concat: ['$first', ' ', '$last']}}}"
+    ],
+    "correctAnswer": "{$addFields: {fullName: {$concat: ['$first', ' ', '$last']}}}",
+    "explanation": "$addFields is similar to $project but implicitly includes all other existing fields."
+  },
+  {
+    "question": "What is the Aggregation Stage to: Write the resulting documents to a new collection.",
+    "options": [
+      "{$out: 'newCollectionName'}",
+      "{$export: 'newCollectionName'}",
+      "{$write: 'newCollectionName'}",
+      "{$save: 'newCollectionName'}"
+    ],
+    "correctAnswer": "{$out: 'newCollectionName'}",
+    "explanation": "$out must be the last stage in the pipeline; it writes results to a collection."
+  },
+  {
+    "question": "What is the Aggregation Stage to: Process documents with multiple parallel pipelines (facets).",
+    "options": [
+      "{$facet: {categoryStats: [...], priceStats: [...]}}",
+      "{$parallel: {categoryStats: [...], priceStats: [...]}}",
+      "{$split: {categoryStats: [...], priceStats: [...]}}",
+      "{$multi: {categoryStats: [...], priceStats: [...]}}"
+    ],
+    "correctAnswer": "{$facet: {categoryStats: [...], priceStats: [...]}}",
+    "explanation": "$facet allows you to run multiple aggregation pipelines on the same input documents within a single stage."
+  },
+  {
+    "question": "What is the Aggregation Operator to: Convert a Date object to a formatted string.",
+    "options": [
+      "{$dateToString: {format: '%Y-%m-%d', date: '$dateField'}}",
+      "{$toString: {date: '$dateField'}}",
+      "{$formatDate: {pattern: 'Y-m-d', val: '$dateField'}}",
+      "{$dateStr: '$dateField'}"
+    ],
+    "correctAnswer": "{$dateToString: {format: '%Y-%m-%d', date: '$dateField'}}",
+    "explanation": "$dateToString formatting uses strftime-like specifiers (e.g., %Y, %m)."
+  },
+  {
+    "question": "What is the Aggregation Operator to: Check if one array is a subset of another (returns true/false).",
+    "options": [
+      "{$setIsSubset: ['$requiredTags', '$userTags']}",
+      "{$isSubset: ['$requiredTags', '$userTags']}",
+      "{$subset: ['$requiredTags', '$userTags']}",
+      "{$inArray: ['$requiredTags', '$userTags']}"
+    ],
+    "correctAnswer": "{$setIsSubset: ['$requiredTags', '$userTags']}",
+    "explanation": "$setIsSubset compares two arrays and returns true if the first is a subset of the second."
+  },
+  {
+    "question": "What is the Aggregation Operator to: Perform a conditional (ternary) logic (if-then-else).",
+    "options": [
+      "{$cond: {if: {$gt: ['$qty', 100]}, then: 'High', else: 'Low'}}",
+      "{$if: {$gt: ['$qty', 100]}, then: 'High', else: 'Low'}",
+      "{$switch: {case: {$gt: ['$qty', 100]}, then: 'High'}}",
+      "{$check: {condition: {$gt: ['$qty', 100]}, true: 'High', false: 'Low'}}"
+    ],
+    "correctAnswer": "{$cond: {if: {$gt: ['$qty', 100]}, then: 'High', else: 'Low'}}",
+    "explanation": "$cond evaluates a boolean expression and returns one of two values."
+  },
+  {
+    "question": "What is the command to: Find documents where 'price' is a specific BSON type (e.g., String).",
+    "options": [
+      "db.items.find({price: {$type: 'string'}})",
+      "db.items.find({price: {$typeof: 'string'}})",
+      "db.items.find({price: {$isType: 'string'}})",
+      "db.items.find({price: {$class: 'string'}})"
+    ],
+    "correctAnswer": "db.items.find({price: {$type: 'string'}})",
+    "explanation": "$type selects documents where the value of the field is an instance of the specified BSON type."
+  },
+  {
+    "question": "What is the command to: Perform a full-text search (requires a text index).",
+    "options": [
+      "db.posts.find({$text: {$search: 'quick brown fox'}})",
+      "db.posts.find({$search: 'quick brown fox'})",
+      "db.posts.find({body: {$contains: 'quick brown fox'}})",
+      "db.posts.find({$query: {text: 'quick brown fox'}})"
+    ],
+    "correctAnswer": "db.posts.find({$text: {$search: 'quick brown fox'}})",
+    "explanation": "$text performs a text search on the content of the fields indexed with a text index."
+  },
+  {
+    "question": "What is the command to: Find documents where the 'email' field exists.",
+    "options": [
+      "db.users.find({email: {$exists: true}})",
+      "db.users.find({email: {$ne: null}})",
+      "db.users.find({email: {$defined: true}})",
+      "db.users.find({email: {$has: true}})"
     ],
     "correctAnswer": "db.users.find({email: {$exists: true}})",
-    "explanation": "Finds documents where the email field exists."
+    "explanation": "$exists: true matches documents that contain the field, even if the value is null."
   },
   {
-    "question": "What is the command to: Finds documents where _id is a BSON ObjectId (type 7).",
+    "question": "What is the command to: Find documents where '_id' is a specific BSON Type (ObjectId is type 7).",
     "options": [
       "db.users.find({_id: {$type: 7}})",
-      "db.users.getIndexes()",
-      "db.users.dropIndex(email_1)",
-      "db.users.updateOne({_id: 1}, {$pop: {scores: 1}})"
+      "db.users.find({_id: {$type: 'ObjectId'}})",
+      "db.users.find({_id: {$is: 7}})",
+      "db.users.find({_id: {$bson: 7}})"
     ],
     "correctAnswer": "db.users.find({_id: {$type: 7}})",
-    "explanation": "Finds documents where _id is a BSON ObjectId (type 7)."
+    "explanation": "Type 7 corresponds to ObjectId in the BSON spec."
   },
   {
-    "question": "What is the command to: Allows use of aggregation expressions to compare fields within the same document.",
+    "question": "What is the command to: Compare two fields within the SAME document (e.g., qty > reorderPoint).",
     "options": [
-      "{$project: {isSubset: {$setIsSubset: [$requiredTags, $userTags]}}}",
-      "db.users.find({$expr: {$gt: [$qty, $reorderPoint]}})",
-      "{$project: {dateString: {$dateToString: {format: %Y-%m-%d, date: $dateField}}}}",
-      "db.items.find({price: {$eq: 10}})"
+      "db.users.find({$expr: {$gt: ['$qty', '$reorderPoint']}})",
+      "db.users.find({qty: {$gt: 'reorderPoint'}})",
+      "db.users.find({$where: 'this.qty > this.reorderPoint'})",
+      "db.users.find({$compare: {qty: {$gt: 'reorderPoint'}}})"
     ],
-    "correctAnswer": "db.users.find({$expr: {$gt: [$qty, $reorderPoint]}})",
-    "explanation": "Allows use of aggregation expressions to compare fields within the same document."
+    "correctAnswer": "db.users.find({$expr: {$gt: ['$qty', '$reorderPoint']}})",
+    "explanation": "$expr allows using aggregation expressions within the query language to compare fields."
   },
   {
-    "question": "What is the command to: If a document is not found, a new one is inserted with the query and update fields.",
+    "question": "What is the command to: Update a document, or Insert it if it doesn't exist (Upsert).",
     "options": [
-      "db.users.find({}).sort({age: -1})",
-      "db.users.updateOne({name: B}, {$set: {age: 25}}, {upsert: true})",
-      "{$out: newCollectionName}",
-      "db.items.find({qty: {$gte: 50}})"
+      "db.users.updateOne({name: 'B'}, {$set: {age: 25}}, {upsert: true})",
+      "db.users.updateOne({name: 'B'}, {$set: {age: 25}}, {insert: true})",
+      "db.users.upsertOne({name: 'B'}, {$set: {age: 25}})",
+      "db.users.save({name: 'B', age: 25})"
     ],
-    "correctAnswer": "db.users.updateOne({name: B}, {$set: {age: 25}}, {upsert: true})",
-    "explanation": "If a document is not found, a new one is inserted with the query and update fields."
+    "correctAnswer": "db.users.updateOne({name: 'B'}, {$set: {age: 25}}, {upsert: true})",
+    "explanation": "The third argument to updateOne is options; setting {upsert: true} enables this behavior."
   },
   {
-    "question": "What is the command to: Updates the quantity of the array element where the name is pen.",
+    "question": "What is the command to: Update the 'qty' of a specific element in an array where the 'name' is 'pen'.",
     "options": [
-      "db.users.updateOne({name: A}, {$set: {age: 30}})",
-      "db.users.updateOne({items.name: pen}, {$set: {items.$.qty: 5}})",
-      "db.users.createIndex({lastName: 1, firstName: 1})",
-      "db.users.updateOne({_id: 1}, {$pull: {tags: old}})"
+      "db.users.updateOne({'items.name': 'pen'}, {$set: {'items.$.qty': 5}})",
+      "db.users.updateOne({'items.name': 'pen'}, {$set: {'items.qty': 5}})",
+      "db.users.updateOne({'items.name': 'pen'}, {$set: {'items.0.qty': 5}})",
+      "db.users.updateOne({'items.name': 'pen'}, {$set: {qty: 5}})"
     ],
-    "correctAnswer": "db.users.updateOne({items.name: pen}, {$set: {items.$.qty: 5}})",
-    "explanation": "Updates the quantity of the array element where the name is pen."
+    "correctAnswer": "db.users.updateOne({'items.name': 'pen'}, {$set: {'items.$.qty': 5}})",
+    "explanation": "The positional operator $ identifies the element that matched the query condition."
   },
   {
-    "question": "What is the command to: Creates a unique index on the email field (ascending).",
+    "question": "What is the command to: Create a unique index on the 'email' field.",
     "options": [
-      "db.posts.deleteMany({author: A})",
       "db.users.createIndex({email: 1}, {unique: true})",
-      "session.abortTransaction()",
-      "{$group: {_id: {$dayOfWeek: $dateField}, count: {$sum: 1}}}"
+      "db.users.createIndex({email: 1}, {distinct: true})",
+      "db.users.ensureIndex({email: 1}, {unique: true})",
+      "db.users.addIndex({email: 1}, {unique: true})"
     ],
     "correctAnswer": "db.users.createIndex({email: 1}, {unique: true})",
-    "explanation": "Creates a unique index on the email field (ascending)."
+    "explanation": "Setting {unique: true} prevents duplicate values in the indexed field."
   },
   {
-    "question": "What is the command to: Creates an index on two fields for queries that filter/sort by both.",
+    "question": "What is the command to: Create a Compound Index on 'lastName' and 'firstName'.",
     "options": [
-      "db.logs.find({createdAt: {$gte: ISODate(2025-10-01T00:00:00Z)}",
-      "db.users.updateMany({}, {$set: {grades.$[elem].status: Passed}},",
-      "db.users.createIndex({email: 1}, {unique: true})",
-      "db.users.createIndex({lastName: 1, firstName: 1})"
+      "db.users.createIndex({lastName: 1, firstName: 1})",
+      "db.users.createIndex(['lastName', 'firstName'])",
+      "db.users.createIndex({lastName: 1}, {firstName: 1})",
+      "db.users.addIndex({lastName: 1, firstName: 1})"
     ],
     "correctAnswer": "db.users.createIndex({lastName: 1, firstName: 1})",
-    "explanation": "Creates an index on two fields for queries that filter/sort by both."
+    "explanation": "Compound indexes support queries on the first field or both fields combined."
   },
   {
-    "question": "What is the command to: Drops a named index (name is often fieldName_sortOrder).",
+    "question": "What is the command to: Drop a specific index by name (e.g., 'email_1').",
     "options": [
-      "db.users.dropIndex(email_1)",
-      "db.dropDatabase()",
-      "db.posts.deleteMany({})",
-      "{$unwind: {path: $items, includeArrayIndex: itemIndex}}"
+      "db.users.dropIndex('email_1')",
+      "db.users.deleteIndex('email_1')",
+      "db.users.removeIndex('email_1')",
+      "db.users.clearIndex('email_1')"
     ],
-    "correctAnswer": "db.users.dropIndex(email_1)",
-    "explanation": "Drops a named index (name is often fieldName_sortOrder)."
+    "correctAnswer": "db.users.dropIndex('email_1')",
+    "explanation": "You can drop an index by its auto-generated name (field_direction) or by the specification object."
   },
   {
-    "question": "What is the command to: Lists all indexes defined on the collection.",
+    "question": "What is the command to: List all indexes on the 'users' collection.",
     "options": [
       "db.users.getIndexes()",
-      "db.users.updateOne({_id: 1}, {$push: {tags: {$each: [A, B]}}})",
-      "{$facet: {categoryBreakdown: [...], priceRange: [...]}}",
-      "90]}}},Selectively filters elements within an array based on a condition."
+      "db.users.listIndexes()",
+      "db.users.showIndexes()",
+      "show indexes"
     ],
     "correctAnswer": "db.users.getIndexes()",
-    "explanation": "Lists all indexes defined on the collection."
+    "explanation": "'getIndexes()' returns an array of documents describing the indexes."
   },
   {
-    "question": "What is the command to: Returns detailed information on how the query was executed (for performance tuning).",
+    "question": "What is the command to: View execution statistics (Winning Plan) for a query.",
     "options": [
-      "90]}}},Selectively filters elements within an array based on a condition.",
-      "{$sort: {total: -1, name: 1}}",
-      "{$sum: 1}",
-      "db.users.find({age: {$gt: 30}}).explain(executionStats)"
+      "db.users.find({age: 30}).explain('executionStats')",
+      "db.users.find({age: 30}).stats()",
+      "db.users.find({age: 30}).analyze()",
+      "db.users.find({age: 30}).debug()"
     ],
-    "correctAnswer": "db.users.find({age: {$gt: 30}}).explain(executionStats)",
-    "explanation": "Returns detailed information on how the query was executed (for performance tuning)."
+    "correctAnswer": "db.users.find({age: 30}).explain('executionStats')",
+    "explanation": ".explain() provides details on how Mongo executed the query (indexes used, docs scanned, etc.)."
   },
   {
-    "question": "What is the command to: Starts a multi-document, multi-operation transaction (requires a replica set/sharded cluster).",
+    "question": "What is the command to: Start a multi-document transaction (in a session).",
     "options": [
-      "db.users.getIndexes()",
-      "{$out: newCollectionName}",
-      "db.users.updateOne({_id: 1}, {$pop: {scores: 1}})",
-      "session.startTransaction()"
+      "session.startTransaction()",
+      "session.begin()",
+      "db.startTransaction()",
+      "session.init()"
     ],
     "correctAnswer": "session.startTransaction()",
-    "explanation": "Starts a multi-document, multi-operation transaction (requires a replica set/sharded cluster)."
+    "explanation": "Transactions must be started on a session object."
   },
   {
-    "question": "What is the command to: Makes all operations within the transaction permanent.",
+    "question": "What is the command to: Commit a transaction (save changes).",
     "options": [
-      "db.users.getIndexes()",
-      "{$avg: $score}",
-      "db.users.updateOne({_id: 1}, {$pullAll: {tags: [old1, old2]}})",
-      "session.commitTransaction()"
+      "session.commitTransaction()",
+      "session.save()",
+      "session.end()",
+      "db.commit()"
     ],
     "correctAnswer": "session.commitTransaction()",
-    "explanation": "Makes all operations within the transaction permanent."
+    "explanation": "Committing makes the operations within the transaction permanent."
   },
   {
-    "question": "What is the command to: Rolls back all operations within the transaction.",
+    "question": "What is the command to: Abort a transaction (rollback changes).",
     "options": [
-      "db.users.find()",
-      "{$group: {_id: $user, uniqueItems: {$addToSet: $productName}}}",
-      "db.posts.insertOne({title: Intro, author: A})",
-      "session.abortTransaction()"
+      "session.abortTransaction()",
+      "session.rollback()",
+      "session.cancel()",
+      "db.rollback()"
     ],
     "correctAnswer": "session.abortTransaction()",
-    "explanation": "Rolls back all operations within the transaction."
+    "explanation": "Aborting discards all operations performed within the transaction."
   }
 ]
