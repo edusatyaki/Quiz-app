@@ -179,7 +179,7 @@
     "question": "What is the command to: Find documents where age is exactly 30.",
     "options": [
       "db.users.find({age: 30})",
-      "db.users.find({age: {$eq: 30}})",
+      "db.users.find({age: {eq: 30}})",
       "db.users.find('age', 30)",
       "db.users.where('age == 30')"
     ],
