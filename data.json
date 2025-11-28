@@ -579,7 +579,7 @@
       "db.users.updateOne({_id: 1}, {$push: {log: [1, 2]}, $slice: 5})",
       "db.users.updateOne({_id: 1}, {$slice: {log: 5}})"
     ],
-    "correctAnswer": "db.users.updateOne({_id: 1}, {$push: {log: {$each: [1, 2, 3], $slice: -5}}})",
+    "correctAnswer": "db.users.updateOne({_id: 1}, {$push: {log: {$each: [1, 2], $slice: -5}}})",
     "explanation": "$slice used with $push keeps the array size fixed. Negative slice keeps the last N elements."
   },
   {
